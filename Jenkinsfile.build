@@ -1,0 +1,36 @@
+#!groovy
+// require "Docker", "Docker Pipeline", "Publish Over SSH" plugin
+pipeline {
+  agent {
+    docker { 
+      image 'node:16.13.1-alpine'
+      args '-u root'
+      reuseNode true
+    }
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh "yarn"
+        sh "yarn build"
+        sh "tar cfvz temp-application.tgz .output"
+        sshPublisher(
+          continueOnError: false,
+          failOnError: true,
+          publishers: [
+            sshPublisherDesc(
+              configName: "${SERVER_ID}",
+              verbose: true,
+              transfers: [
+                sshTransfer(
+                  sourceFiles: "temp-application.tgz",
+                  remoteDirectory: "${ODA_INTRO_SERVER_DEPLOY_PATH}/front/web-about/dist",
+                ),
+              ]
+            )
+          ]
+        )
+      }
+    }
+  }
+}

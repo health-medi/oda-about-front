@@ -1,0 +1,28 @@
+#!groovy
+pipeline {
+  agent any
+  stages {
+    stage('Deploy') {
+      steps {
+        sshPublisher(
+          continueOnError: false,
+          failOnError: true,
+          publishers: [
+            sshPublisherDesc(
+              configName: "${SERVER_ID}",
+              verbose: true,
+              transfers: [
+                sshTransfer(
+                  execCommand: """${ODA_INTRO_SERVER_DEPLOY_PATH}/script/stop-service.sh front-web-about ;
+                  rm -rf ${ODA_INTRO_SERVER_DEPLOY_PATH}/front/web-about/dist/.output ;
+                  tar xvzf ${ODA_INTRO_SERVER_DEPLOY_PATH}/front/web-about/dist/temp-application.tgz -C ${ODA_INTRO_SERVER_DEPLOY_PATH}/front/web-about/dist ;
+                  ${ODA_INTRO_SERVER_DEPLOY_PATH}/script/start-service.sh front-web-about"""
+                )
+              ]
+            )
+          ]
+        )
+      }
+    }
+  }
+}
