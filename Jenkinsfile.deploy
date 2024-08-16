@@ -13,10 +13,10 @@ pipeline {
               verbose: true,
               transfers: [
                 sshTransfer(
-                  execCommand: """${ODA_INTRO_SERVER_DEPLOY_PATH}/script/stop-service.sh front-web-about ;
-                  rm -rf ${ODA_INTRO_SERVER_DEPLOY_PATH}/front/web-about/dist/.output ;
-                  tar xvzf ${ODA_INTRO_SERVER_DEPLOY_PATH}/front/web-about/dist/temp-application.tgz -C ${ODA_INTRO_SERVER_DEPLOY_PATH}/front/web-about/dist ;
-                  ${ODA_INTRO_SERVER_DEPLOY_PATH}/script/start-service.sh front-web-about"""
+                  execCommand: """${ODA_ABOUT_SERVER_DEPLOY_PATH}/script/stop-service.sh front-web-about ;
+                  rm -rf ${ODA_ABOUT_SERVER_DEPLOY_PATH}/front/web-about/dist/.output ;
+                  tar xvzf ${ODA_ABOUT_SERVER_DEPLOY_PATH}/front/web-about/dist/temp-application.tgz -C ${ODA_ABOUT_SERVER_DEPLOY_PATH}/front/web-about/dist ;
+                  ${ODA_ABOUT_SERVER_DEPLOY_PATH}/script/start-service.sh front-web-about"""
                 )
               ]
             )

@@ -24,7 +24,7 @@ pipeline {
               transfers: [
                 sshTransfer(
                   sourceFiles: "temp-application.tgz",
-                  remoteDirectory: "${ODA_INTRO_SERVER_DEPLOY_PATH}/front/web-about/dist",
+                  remoteDirectory: "${ODA_ABOUT_SERVER_DEPLOY_PATH}/front/web-about/dist",
                 ),
               ]
             )
