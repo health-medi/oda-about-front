@@ -1,20 +1,23 @@
 <template>
   <div class="relative h-screen">
     <div class="flex justify-center h-full">
-      <div id="map" ref="mapContainer" class="py-1 px-2 max-w-[460px] h-full sm:w-[460px] sm:h-full"></div>
+      <div
+        id="map"
+        ref="mapContainer"
+        class="py-1 px-2 max-w-[460px] h-full sm:w-[460px] sm:h-full"
+      ></div>
     </div>
     <!-- Bottom Sheet 컴포넌트 -->
-    <MapBottomSheet 
-      v-if="isBottomSheetVisible" 
-      :hospital="selectedHospital" 
+    <MapBottomSheet
+      v-if="isBottomSheetVisible"
+      :hospital="selectedHospital"
       :style="bottomSheetStyle"
-      @close="isBottomSheetVisible = false" 
+      @close="isBottomSheetVisible = false"
     />
   </div>
 </template>
 
 <script setup>
-import kingImage from '@/assets/sample/king.png';
 const props = defineProps({
   /**
    * X 좌표값 (경도)
@@ -52,13 +55,12 @@ const bottomSheetStyle = computed(() => {
   return {};
 });
 
-
-const emit = defineEmits(['update']);
+const emit = defineEmits(["update"]);
 
 /**
  * 병원 목록을 조회하고 마커를 업데이트하는 함수
  */
- const fetchHospital = async (locXPos, locYPos) => {
+const fetchHospital = async (locXPos, locYPos) => {
   try {
     const { data } = await useHospital().fetchList({
       conditions: [
@@ -74,12 +76,12 @@ const emit = defineEmits(['update']);
     });
     const hospitalList = data;
 
-    console.log(hospitalList)
+    console.log(hospitalList);
     // 현재 맵의 보이는 영역(Bounds) 가져오기
     const bounds = map.value.getBounds();
 
     // 기존 마커를 검사하여 맵 영역 밖에 있는 마커 제거
-    markers.value = markers.value.filter(marker => {
+    markers.value = markers.value.filter((marker) => {
       if (bounds.contain(marker.getPosition())) {
         return true; // 맵 영역 내에 있는 마커는 유지
       } else {
@@ -89,11 +91,11 @@ const emit = defineEmits(['update']);
     });
 
     // 새로운 병원 데이터에 대해 마커 추가
-    hospitalList.forEach(hospital => {
+    hospitalList.forEach((hospital) => {
       // 마커 이미지의 URL, 사이즈 등을 설정
       let attachId;
 
-      let imageSrc = '';
+      let imageSrc = "";
       if (hospital.medicalStaffList && hospital.medicalStaffList.length > 0) {
         attachId = hospital.medicalStaffList[0].attachBag.image[0].attachId;
         imageSrc = `/api/attach/view/${attachId}`; // 마커 이미지 URL
@@ -102,7 +104,11 @@ const emit = defineEmits(['update']);
       const imageOption = { offset: new kakao.maps.Point(25, 50) }; // 마커의 중심좌표 설정
 
       // 마커 이미지 생성
-      const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+      const markerImage = new kakao.maps.MarkerImage(
+        imageSrc,
+        imageSize,
+        imageOption
+      );
 
       // 마커 생성
       const marker = new kakao.maps.Marker({
@@ -112,17 +118,16 @@ const emit = defineEmits(['update']);
       });
 
       // 마커 클릭 이벤트 추가
-      kakao.maps.event.addListener(marker, 'click', () => {
-        console.log(hospital)
+      kakao.maps.event.addListener(marker, "click", () => {
+        console.log(hospital);
         selectedHospital.value = hospital;
         isBottomSheetVisible.value = true;
       });
 
       markers.value.push(marker);
     });
-
   } catch (error) {
-    console.error('Failed to fetch hospitalList:', error);
+    console.error("Failed to fetch hospitalList:", error);
   }
 };
 
@@ -130,9 +135,9 @@ const emit = defineEmits(['update']);
  * 카카오 지도 초기화
  */
 const initMap = () => {
-  const mapContainer = document.getElementById('map');
+  const mapContainer = document.getElementById("map");
 
-  navigator.geolocation.getCurrentPosition(pos => {
+  navigator.geolocation.getCurrentPosition((pos) => {
     localPositionX.value = pos.coords.longitude;
     localPositionY.value = pos.coords.latitude;
 
@@ -148,7 +153,7 @@ const initMap = () => {
     fetchHospital(localPositionX.value, localPositionY.value, 1000);
 
     // 지도 이동 이벤트 등록
-    kakao.maps.event.addListener(map.value, 'center_changed', () => {
+    kakao.maps.event.addListener(map.value, "center_changed", () => {
       const center = map.value.getCenter();
       localPositionX.value = center.getLng();
       localPositionY.value = center.getLat();
@@ -156,11 +161,11 @@ const initMap = () => {
     });
 
     // 지도 클릭 이벤트 등록 (마커 이동)
-    kakao.maps.event.addListener(map.value, 'click', function (mouseEvent) {
+    kakao.maps.event.addListener(map.value, "click", function (mouseEvent) {
       let latlng = mouseEvent.latLng;
       localPositionX.value = latlng.getLng();
       localPositionY.value = latlng.getLat();
-      emit('update', {
+      emit("update", {
         positionX: localPositionX.value,
         positionY: localPositionY.value,
       });
@@ -173,7 +178,7 @@ const initMap = () => {
  */
 const config = useRuntimeConfig();
 const addScript = () => {
-  const script = document.createElement('script');
+  const script = document.createElement("script");
   script.onload = () => kakao.maps.load(initMap);
   const scriptUrl = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${config.KAKAOMAP_APIKEY}&autoload=false`;
   script.src = scriptUrl;
