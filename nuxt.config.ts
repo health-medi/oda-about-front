@@ -39,7 +39,7 @@ export default defineNuxtConfig({
     "@/assets/styles/file-upload.scss",
     "@mdi/font/scss/materialdesignicons.scss",
   ],
-  // plugins: [{ src: "@/plugins/aos", mode: "client", ssr: false }],
+  plugins: [{ src: "@/plugins/aos", mode: "client", ssr: false }],
   meta: {
     meta: [
       {

@@ -28,13 +28,6 @@ module.exports = {
       ],
       pretendard: ["Pretendard", "sans-serif"],
     },
-    screens: {
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1536px",
-    },
     extend: {
       colors: {
         primary: "#FF1C7B",
@@ -46,45 +39,6 @@ module.exports = {
         gray: colors.neutral,
       },
       display: ["group-hover"],
-      fontSize: {
-        "3xl": [
-          "32px",
-          {
-            letterSpacing: "-0.02em",
-            lineHeight: "36px",
-          },
-        ],
-        "3.5xl": [
-          "40px",
-          {
-            letterSpacing: "-0.02em",
-            lineHeight: "44px",
-          },
-        ],
-        "4xl": [
-          "48px",
-          {
-            letterSpacing: "-0.02em",
-            lineHeight: "52px",
-          },
-        ],
-        "5xl": [
-          "64px",
-          {
-            letterSpacing: "-0.02em",
-            lineHeight: "68px",
-          },
-        ],
-      },
-      borderWidth: {
-        DEFAULT: "1px",
-        0: "0",
-        2: "2px",
-        3: "3px",
-        4: "4px",
-        6: "6px",
-        8: "8px",
-      },
       width: {
         128: "36rem",
       },

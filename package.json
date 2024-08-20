@@ -31,6 +31,7 @@
     "@headlessui/vue": "^1.4.2",
     "@mdi/font": "^6.5.95",
     "@types/aos": "^3.0.4",
+    "aos": "^2.3.4",
     "@types/qs": "^6.9.7",
     "@vee-validate/i18n": "^4.5.7",
     "axios": "^0.24.0",
