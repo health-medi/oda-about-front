@@ -391,7 +391,7 @@
     <!-- 이미지 -->
     <img
       class="relative max-w-[150%] md:max-w-[1920px] left-1/2 translate-x-[-50%]"
-      src="/_nuxt/assets/images/main/box8bg.png"
+      src="@/assets/images/main/box8bg.png"
     />
 
     <!-- 텍스트 및 버튼 -->
