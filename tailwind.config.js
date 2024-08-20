@@ -9,7 +9,6 @@ module.exports = {
     "./pages/*.vue",
     "./pages/**/*.vue",
     "./plugins/**/*.{js,ts}",
-    "./*.{vue,js,ts}",
     "./app.vue",
   ],
   darkMode: "class",
