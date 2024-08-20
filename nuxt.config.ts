@@ -56,7 +56,7 @@ export default defineNuxtConfig({
     },
     bodyAttrs: {
       class:
-        "font-pretendard max-w-[1920px] mx-auto relative w-full overflow-x-hidden",
+        "font-pretendard max-w-[1920px] mx-auto *:relative *:w-full *:overflow-x-hidden",
     },
   },
   build: {
