@@ -1,5 +1,5 @@
 <template>
-  <div class="relative items-center overflow-x-hidden">
+  <div class="max-w-[1920px] relative items-center overflow-x-hidden">
     <MainDescription id="description" />
     <Footer />
   </div>

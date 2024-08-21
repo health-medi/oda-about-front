@@ -1,6 +1,8 @@
-import nProgress from 'nprogress';
-import 'nprogress/nprogress.css';
+import nProgress from "nprogress";
+import "nprogress/nprogress.css";
 
-nProgress.configure({ easing: 'ease', trickleSpeed: 200, showSpinner: false });
+nProgress.configure({ easing: "ease", trickleSpeed: 100, showSpinner: false });
 
-export default nProgress;
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.component("nProgress", nProgress);
+});

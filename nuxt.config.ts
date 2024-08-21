@@ -36,7 +36,6 @@ export default defineNuxtConfig({
     "@/assets/styles/tailwind.scss",
     "@/assets/styles/toast.scss",
     "@/assets/styles/scrollbar.scss",
-    "@/assets/styles/file-upload.scss",
     "@mdi/font/scss/materialdesignicons.scss",
   ],
   plugins: [{ src: "@/plugins/aos", mode: "client", ssr: false }],
@@ -56,7 +55,7 @@ export default defineNuxtConfig({
     },
     bodyAttrs: {
       class:
-        "font-pretendard max-w-[1920px] mx-auto *:relative *:w-full *:overflow-x-hidden",
+        "font-pretendard max-w-[1920px] mx-auto *:relative *:w-full *:overflow-x-hidden antialiased tracking-tight",
     },
   },
   build: {
