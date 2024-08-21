@@ -45,11 +45,14 @@ export default defineNuxtConfig({
         name: "viewport",
         content: "width=device-width, initial-scale=1, maximum-scale=1",
       },
-      { name: "og:title", content: "오다 - 앱소개" },
-      { name: "og:description", content: "오다 앱소개 홈페이지입니다." },
+      { name: "og:title", content: "오다 - 오늘의 다이어트" },
+      {
+        name: "og:description",
+        content: "오다 -오늘의 다이어트 홈페이지입니다.",
+      },
       { name: "og:type", content: "website" },
     ],
-    title: "오다 앱소개",
+    title: "오다 - 오늘의 다이어트",
     htmlAttrs: {
       lang: "ko",
     },
