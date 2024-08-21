@@ -89,14 +89,15 @@
           오늘의 다이어트 <span class="font-semibold">'오다'</span>
         </h1>
         <a
-        class="md:text-xl mr-4 rounded-full font-bold text-center pt-1.5 md:pt-3 bg-[#FF6079] h-[35px] md:h-[50px] w-[150px] md:w-[267px] hover:bg-[#ff3e5c] transition-all"
-        href="#"
-        @click="checkMobile()"
-      >
-        <NuxtLink to="/">한의원 상담신청</NuxtLink>
-      </a>
-    </section>
-  </footer>
+          class="md:text-xl mr-4 rounded-full font-bold text-center pt-1.5 md:pt-3 bg-[#FF6079] h-[35px] md:h-[50px] w-[150px] md:w-[267px] hover:bg-[#ff3e5c] transition-all"
+          href="#"
+          @click="checkMobile()"
+        >
+          <NuxtLink to="/">한의원 상담신청</NuxtLink>
+        </a>
+      </section>
+    </footer>
+  </div>
 </template>
 <script setup>
 const { checkMobile } = useCheckOs();
