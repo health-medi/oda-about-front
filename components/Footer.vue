@@ -22,8 +22,7 @@
           >
           <a
             class="flex-1 md:flex-initial hover:bg-black"
-            href="mailto:odadiet@gmail.com"
-            target="_blank"
+            href="https://todaydiet.kr"
             >가입문의</a
           >
         </div>
@@ -93,10 +92,12 @@
           href="#"
           @click="checkMobile()"
         >
-          <NuxtLink to="/">한의원 상담신청</NuxtLink>
+          한의원 상담신청
         </a>
       </section>
     </footer>
   </div>
 </template>
-<script setup></script>
+<script setup>
+const { checkMobile } = useCheckOs();
+</script>
