@@ -14,18 +14,7 @@ module.exports = {
   darkMode: "class",
   theme: {
     fontFamily: {
-      sans: [
-        "Apple SD Gothic Neo",
-        "Poppins",
-        "AppleGothic",
-        "Malgun Gothic",
-        "맑은 고딕",
-        "AppleGothic",
-        "Dotum",
-        "돋움",
-        "sans-serif",
-      ],
-      pretendard: ["Pretendard", "sans-serif"],
+      sans: ["Pretendard", "sans-serif"],
     },
     extend: {
       colors: {
