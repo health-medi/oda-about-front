@@ -60,7 +60,7 @@
     </section>
     <section class="md:relative md:flex md:justify-center">
       <img
-        class="absolute z-10 w-[300px] md:w-auto md:bottom-56"
+        class="absolute z-10 w-[300px] md:w-auto md:bottom-56 mt-64"
         src="@/assets/images/main/box201.png"
         alt="날씬함이 아름다움이 오다"
         data-aos="zoom-in"
