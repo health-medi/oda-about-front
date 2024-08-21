@@ -149,15 +149,15 @@
         class="flex banner_wraper relative h-[270px] md:h-[480px] w-full overflow-hidden"
       >
         <img
-          class="banner w-[120px] md:w-[241px] md:mb-12"
+          class="banner w-[120px] md:w-[241px] mb-8 md:mb-12"
           src="@/assets/images/main/box301.png"
         />
         <img
-          class="banner top-12 w-[120px] md:w-[241px] md:mt-12"
+          class="banner top-12 w-[120px] md:w-[241px] mt-8 md:mt-12"
           src="@/assets/images/main/box302.png"
         />
         <video
-          class="banner w-[120px] md:w-[241px] rounded-full object-cover md:mb-12"
+          class="banner w-[120px] md:w-[241px] rounded-full object-cover mb-8 md:mb-12"
           src="@/assets/images/main/box301.mp4"
           type="video/mp4"
           autoplay
@@ -165,11 +165,11 @@
           loop
         ></video>
         <img
-          class="banner w-[120px] md:w-[241px] md:mt-12"
+          class="banner w-[120px] md:w-[241px] mt-8 md:mt-12"
           src="@/assets/images/main/box303.png"
         />
         <video
-          class="banner w-[120px] md:w-[241px] rounded-full object-cover md:mb-12"
+          class="banner w-[120px] md:w-[241px] rounded-full object-cover mb-8 md:mb-12"
           src="@/assets/images/main/box302.mp4"
           type="video/mp4"
           autoplay
@@ -177,11 +177,11 @@
           loop
         ></video>
         <img
-          class="banner w-[120px] md:w-[241px] rounded-full object-cover md:mt-12"
+          class="banner w-[120px] md:w-[241px] rounded-full object-cover mt-8 md:mt-12"
           src="@/assets/images/main/box304.png"
         />
         <video
-          class="banner w-[120px] md:w-[241px] rounded-full object-cover md:mb-12"
+          class="banner w-[120px] md:w-[241px] rounded-full object-cover mb-8 md:mb-12"
           src="@/assets/images/main/box303.mp4"
           type="video/mp4"
           autoplay
@@ -189,11 +189,11 @@
           loop
         ></video>
         <img
-          class="banner w-[120px] md:w-[241px] md:mt-12"
+          class="banner w-[120px] md:w-[241px] mt-8 md:mt-12"
           src="@/assets/images/main/box305.png"
         />
         <video
-          class="banner w-[120px] md:w-[241px] rounded-full object-cover md:mb-12"
+          class="banner w-[120px] md:w-[241px] rounded-full object-cover mb-8 md:mb-12"
           src="@/assets/images/main/box304.mp4"
           type="video/mp4"
           autoplay
@@ -201,15 +201,15 @@
           loop
         ></video>
         <img
-          class="banner w-[120px] md:w-[241px] md:mt-12"
+          class="banner w-[120px] md:w-[241px] mt-8 md:mt-12"
           src="@/assets/images/main/box306.png"
         />
         <img
-          class="banner w-[120px] md:w-[241px] md:mb-12"
+          class="banner w-[120px] md:w-[241px] mb-8 md:mb-12"
           src="@/assets/images/main/box307.png"
         />
         <img
-          class="banner w-[120px] md:w-[241px] md:mt-12"
+          class="banner w-[120px] md:w-[241px] mt-8 md:mt-12"
           src="@/assets/images/main/box308.png"
         />
       </div>
@@ -217,7 +217,7 @@
 
     <section>
       <img
-        class="absolute z-10 transform translate-x-[-50%] translate-y-[-30%] w-[238.5px] md:w-auto md:mt-80 md:pl-80"
+        class="absolute z-10 transform translate-x-[-50%] translate-y-[-30%] w-[200px] md:w-auto md:mt-80 md:pl-80 mt-24 ml-5"
         src="@/assets/images/main/box401.png"
         data-aos="fade-right"
         data-aos-duration="1000"
@@ -242,7 +242,7 @@
         </h1>
         <ul
           ref="scrollElement"
-          class="absolute w-px md:w-0.5 md:top-24 h-12 md:h-36 left-1/2 bg-stone-700 md:mt-2"
+          class="absolute w-px md:w-0.5 md:top-24 top-12 h-12 md:h-36 left-1/2 bg-stone-700 md:mt-2"
           data-aos="fade-down"
           data-aos-duration="1000"
         ></ul>
@@ -257,7 +257,7 @@
       class="bg-[url('@/assets/images/main/box6bg.png')] text-center md:text-left py-16"
     >
       <article
-        class="md:flex items-center justify-between w-full md:w-[1150px] my-16 md:my-22 mx-auto p-6 md:p-0"
+        class="md:flex items-center justify-between w-full md:w-[1150px] md:my-22 mx-auto p-6 md:p-0"
       >
         <div class="md:w-[455px]" data-aos="fade-up" data-aos-duration="1000">
           <span
@@ -285,7 +285,7 @@
         />
       </article>
     </section>
-    <section class="bg-white text-center md:text-left py-28 md:py28">
+    <section class="bg-white text-center md:text-left md:py-28">
       <article
         class="md:flex flex-row-reverse items-center justify-between w-full md:w-[1150px] my-16 md:my-16 mx-auto p-6 md:p-0"
       >
@@ -419,6 +419,8 @@
 </template>
 <script setup>
 import { gsap } from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 const { checkMobile } = useCheckOs();
 // 숫자 애니메이션에 사용될 counter 데이터
@@ -489,9 +491,37 @@ const initBannerAnimation = () => {
   });
 };
 
+// GSAP을 이용한 애니메이션 설정
+const initGsapAnimations = () => {
+  // fade-up 애니메이션
+  gsap.from(".fade-up", {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    scrollTrigger: {
+      trigger: ".fade-up",
+      start: "top 80%",
+      end: "bottom top",
+      scrub: true,
+    },
+  });
+
+  // zoom-in 애니메이션
+  gsap.from(".zoom-in", {
+    scale: 0.5,
+    opacity: 0,
+    duration: 1,
+    scrollTrigger: {
+      trigger: ".zoom-in",
+      start: "top 80%",
+      end: "bottom top",
+      scrub: true,
+    },
+  });
+};
+
 // Watch 함수
 watch(scrollPosition, (newValue) => {
-  console.log(1);
   const winHeight = window.innerHeight;
 
   counters.value.forEach((counter, index) => {
@@ -517,6 +547,7 @@ watch(scrollPosition, (newValue) => {
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
   initBannerAnimation();
+  // initGsapAnimations();
   handleScroll(); // 초기 스크롤 상태 확인
 });
 </script>

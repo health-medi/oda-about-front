@@ -24,7 +24,6 @@ export const useScroll = () => {
   const isActive = useState("isActive", () => false);
 
   const onscroll = () => {
-    console.log(screenWidth.value);
     screenWidth.value > 768 ? scrollPos() : mobilePos();
   };
 
