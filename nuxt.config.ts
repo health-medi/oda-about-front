@@ -45,6 +45,10 @@ export default defineNuxtConfig({
         name: "viewport",
         content: "width=device-width, initial-scale=1, maximum-scale=1",
       },
+      {
+        name: "naver-site-verification",
+        content: "eb7c0e3550aefef06d1b52e0f0fc9f13f9bea895",
+      },
       { name: "og:title", content: "오다 - 오늘의 다이어트" },
       {
         name: "og:description",
