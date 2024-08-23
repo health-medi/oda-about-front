@@ -59,7 +59,7 @@
               <span>Copyrightⓒ 오늘의 다이어트 All Rights Reserved.</span>
             </li>
           </ul>
-          <ul class="flex mt-6 md:mt-0">
+          <!-- <ul class="flex mt-6 md:mt-0">
             <a
               class="block mr-4 md:mr-7"
               href="https://blog.naver.com/odadiet"
@@ -78,7 +78,7 @@
                 src="@/assets/images/main/footer2.png"
                 alt="youtube"
             /></a>
-          </ul>
+          </ul> -->
         </div>
       </section>
       <section
