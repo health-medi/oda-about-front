@@ -24,7 +24,16 @@
         :disabled="disabled"
         :placeholder="placeholder"
         @changeValue="onChange"
-        v-else-if="isPhone || isMobile || isCompanyNumber || isNumber || isPhysical || isCurrency || isDate || isTime"
+        v-else-if="
+          isPhone ||
+          isMobile ||
+          isCompanyNumber ||
+          isNumber ||
+          isPhysical ||
+          isCurrency ||
+          isDate ||
+          isTime
+        "
       />
       <TextareaAutosize
         v-model="localValue"
@@ -38,7 +47,7 @@
         v-else-if="isTextarea"
       />
     </div>
-    <p class="relative mb-3 h-3 whitespace-nowrap" v-if="name">
+    <p class="relative mb-2 h-3 whitespace-nowrap" v-if="name">
       <span
         class="overflow-hidden absolute top-0.5 left-1 w-full text-xs text-green-600 text-ellipsis"
         v-show="meta.valid && localValue"
@@ -56,7 +65,7 @@
 </template>
 
 <script setup>
-import { useField } from 'vee-validate';
+import { useField } from "vee-validate";
 
 const props = defineProps({
   /**
@@ -128,23 +137,23 @@ const props = defineProps({
   type: {
     type: String,
     default() {
-      return 'text';
+      return "text";
     },
     validator: function (value) {
       return (
         [
-          'text',
-          'email',
-          'password',
-          'textarea',
-          'phone',
-          'mobile',
-          'company-number',
-          'number',
-          'physical',
-          'currency',
-          'date',
-          'time',
+          "text",
+          "email",
+          "password",
+          "textarea",
+          "phone",
+          "mobile",
+          "company-number",
+          "number",
+          "physical",
+          "currency",
+          "date",
+          "time",
         ].indexOf(value) !== -1
       );
     },
@@ -155,10 +164,10 @@ const props = defineProps({
   size: {
     type: String,
     default() {
-      return 'md';
+      return "md";
     },
     validator: function (value) {
-      return ['xs', 'sm', 'md', 'lg', 'xl'].indexOf(value) !== -1;
+      return ["xs", "sm", "md", "lg", "xl"].indexOf(value) !== -1;
     },
   },
   /**
@@ -175,18 +184,18 @@ const props = defineProps({
    */
   successMessage: {
     type: String,
-    default: '',
+    default: "",
   },
   /**
    * placeholder
    */
   placeholder: {
     type: String,
-    default: '',
+    default: "",
   },
 });
 
-const emit = defineEmits(['update:modelValue', 'change']);
+const emit = defineEmits(["update:modelValue", "change"]);
 
 const attrs = useAttrs();
 
@@ -199,7 +208,7 @@ watch(
       localValue.value = newVal;
       validateValue.value = newVal;
     }
-  },
+  }
 );
 
 /**
@@ -225,70 +234,70 @@ const {
  * 입력 구분이 텍스트 영역인지 여부
  */
 const isTextarea = computed(() => {
-  return ['textarea'].indexOf(props.type) !== -1;
+  return ["textarea"].indexOf(props.type) !== -1;
 });
 
 /**
  * 입력 구분이 전화인지 여부
  */
 const isPhone = computed(() => {
-  return ['phone'].indexOf(props.type) !== -1;
+  return ["phone"].indexOf(props.type) !== -1;
 });
 
 /**
  * 입력 구분이 휴대폰인지 여부
  */
 const isMobile = computed(() => {
-  return ['mobile'].indexOf(props.type) !== -1;
+  return ["mobile"].indexOf(props.type) !== -1;
 });
 
 /**
  * 입력 구분이 사업자등록번호인지 여부
  */
 const isCompanyNumber = computed(() => {
-  return ['company-number'].indexOf(props.type) !== -1;
+  return ["company-number"].indexOf(props.type) !== -1;
 });
 
 /**
  * 입력 구분이 숫자인지 여부
  */
 const isNumber = computed(() => {
-  return ['number'].indexOf(props.type) !== -1;
+  return ["number"].indexOf(props.type) !== -1;
 });
 
 /**
  * 입력 구분이 신체정보인지 여부
  */
 const isPhysical = computed(() => {
-  return ['physical'].indexOf(props.type) !== -1;
+  return ["physical"].indexOf(props.type) !== -1;
 });
 
 /**
  * 입력 구분이 금액인지 여부
  */
 const isCurrency = computed(() => {
-  return ['currency'].indexOf(props.type) !== -1;
+  return ["currency"].indexOf(props.type) !== -1;
 });
 
 /**
  * 입력 구분이 날짜(YYYY-MM-DD)인지 여부
  */
 const isDate = computed(() => {
-  return ['date'].indexOf(props.type) !== -1;
+  return ["date"].indexOf(props.type) !== -1;
 });
 
 /**
  * 입력 구분이 시간(00:00)인지 여부
  */
 const isTime = computed(() => {
-  return ['time'].indexOf(props.type) !== -1;
+  return ["time"].indexOf(props.type) !== -1;
 });
 
 /**
  * 입력 구분이 일반 텍스트인지 여부
  */
 const isText = computed(() => {
-  return ['text', 'email', 'password'].indexOf(props.type) !== -1;
+  return ["text", "email", "password"].indexOf(props.type) !== -1;
 });
 
 /**
@@ -298,14 +307,14 @@ const cleaveOptions = computed(() => {
   if (isPhone.value || isMobile.value) {
     return {
       phone: true,
-      phoneRegionCode: 'KR',
-      delimiter: '-',
+      phoneRegionCode: "KR",
+      delimiter: "-",
     };
   } else if (isCompanyNumber.value) {
     return {
       blocks: [3, 2, 5],
       numericOnly: true,
-      delimiter: '-',
+      delimiter: "-",
     };
   } else if (isPhysical.value) {
     return {
@@ -321,18 +330,18 @@ const cleaveOptions = computed(() => {
     return {
       numeral: true,
       numericOnly: true,
-      numeralThousandsGroupStyle: 'thousand',
+      numeralThousandsGroupStyle: "thousand",
     };
   } else if (isDate.value) {
     return {
       date: true,
-      delimiter: '-',
-      datePattern: ['Y', 'm', 'd'],
+      delimiter: "-",
+      datePattern: ["Y", "m", "d"],
     };
   } else if (isTime.value) {
     return {
       time: true,
-      timePattern: ['h', 'm'],
+      timePattern: ["h", "m"],
     };
   }
   return null;
@@ -343,37 +352,45 @@ const cleaveOptions = computed(() => {
  */
 const classes = computed(() => {
   const classArray = [
-    'bg-white',
-    'shadow-inner',
-    'border-2',
-    'focus:border-[#FF4E8B]',
-    'duration-200',
-    'outline-none',
-    'w-full',
-    'rounded-xl',
-    'hover:shadow-md',
-    'focus:shadow-md',
-    'focus:shadow-[#FF4E8B]/40',
-    'placeholder:text-gray-400',
+    "bg-white",
+    "shadow-inner",
+    "border-2",
+    "focus:border-[#FF4E8B]",
+    "duration-200",
+    "outline-none",
+    "w-full",
+    "rounded-xl",
+    "hover:shadow-md",
+    "focus:shadow-md",
+    "focus:shadow-[#FF4E8B]/40",
+    "placeholder:text-gray-400",
   ];
   switch (props.size) {
-    case 'xs':
-      classArray.push(...['text-xs', 'placeholder:text-sm', 'py-1', 'px-2']);
+    case "xs":
+      classArray.push(...["text-xs", "placeholder:text-sm", "py-1", "px-2"]);
       break;
-    case 'sm':
-      classArray.push(...['text-sm', 'placeholder:text-sm', 'py-1', 'px-2']);
+    case "sm":
+      classArray.push(...["text-sm", "placeholder:text-sm", "py-1", "px-2"]);
       break;
-    case 'md':
-      classArray.push(...['text-base', 'placeholder:text-base', 'py-2', 'px-3']);
+    case "md":
+      classArray.push(
+        ...["text-base", "placeholder:text-base", "py-2", "px-3"]
+      );
       break;
-    case 'lg':
-      classArray.push(...['text-base', 'placeholder:text-base', 'py-2', 'px-4']);
+    case "lg":
+      classArray.push(
+        ...["text-base", "placeholder:text-base", "py-2", "px-4"]
+      );
       break;
-    case 'xl':
-      classArray.push(...['text-lg', 'placeholder:text-lg', 'py-4', 'px-4']);
+    case "xl":
+      classArray.push(...["text-lg", "placeholder:text-lg", "py-4", "px-4"]);
       break;
   }
-  classArray.push(...(!!errorMessage.value ? ['border-red-600', 'bg-red-50', 'focus:bg-white'] : ['border-gray-300']));
+  classArray.push(
+    ...(!!errorMessage.value
+      ? ["border-red-600", "bg-red-50", "focus:bg-white"]
+      : ["border-gray-300"])
+  );
   if (attrs.class) {
     classArray.push(attrs.class);
   }
@@ -384,9 +401,9 @@ const classes = computed(() => {
  * 래퍼 클래스
  */
 const wrapperClasses = computed(() => {
-  const classArray = ['flex'];
+  const classArray = ["flex"];
   if (props.block) {
-    classArray.push('w-full');
+    classArray.push("w-full");
   }
   return classArray;
 });
@@ -397,7 +414,7 @@ const wrapperClasses = computed(() => {
 const onChange = (value) => {
   localValue.value = value;
   validateValue.value = value;
-  emit('update:modelValue', value);
-  emit('change', value);
+  emit("update:modelValue", value);
+  emit("change", value);
 };
 </script>

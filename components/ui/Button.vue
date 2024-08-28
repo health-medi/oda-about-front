@@ -4,6 +4,9 @@
       class="absolute w-0 h-0 bg-gradient-to-tl from-white to-transparent rounded-sm border-gray-500 opacity-30 transition-all duration-200 ease-out"
       :class="{ 'group-focus:w-full group-focus:h-full group-hover:w-full group-hover:h-full': !isDisabled }"
     ></span>
+    <div class="flex z-10 justify-center items-center pl-1 w-8 text-center pointer-events-none" v-if="prefixIcon">
+        <UiIcon :icon="prefixIcon" class="text-gray-300" />
+      </div>
     <span class="group flex relative flex-row gap-1">
       <span
         class="select-none"
@@ -81,6 +84,12 @@ const props = defineProps({
       return false;
     },
   },
+  /**
+   * 앞쪽 삽입 아이콘
+   */
+   prefixIcon: {
+    type: String,
+  },
 });
 
 const slots = useSlots();
@@ -98,7 +107,9 @@ const localDisabled = ref(false);
 /**
  * 비활성화 여부
  */
-const isDisabled = computed(() => isLoading.value || useAttrs().disabled || localDisabled.value);
+const isDisabled = computed(() => {
+  isLoading.value || useAttrs().disabled || localDisabled.value}
+  );
 
 /**
  * 클래스
@@ -120,6 +131,7 @@ const classes = computed(() => {
   switch (props.variant) {
     case 'primary':
     case 'info':
+      classArray.push(...[`bg-${props.variant}-500`, 'text-white', 'font-bold']);
     case 'success':
     case 'warning':
     case 'danger':

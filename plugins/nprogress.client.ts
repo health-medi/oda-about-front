@@ -1,8 +1,10 @@
-import nProgress from "nprogress";
+// plugins/nprogress.client.ts
+import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
-nProgress.configure({ easing: "ease", trickleSpeed: 100, showSpinner: false });
+NProgress.configure({ easing: "ease", trickleSpeed: 100, showSpinner: false });
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.component("nProgress", nProgress);
+  // nProgress를 Nuxt 애플리케이션의 컨텍스트에 추가
+  nuxtApp.provide('nProgress', NProgress);
 });

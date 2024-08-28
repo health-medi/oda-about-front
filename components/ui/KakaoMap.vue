@@ -1,10 +1,36 @@
 <template>
   <div class="relative h-screen">
+    <div class="relative max-w-lg mx-auto">
+      <div
+        class="absolute left-3 md:left-10 top-1/2 transform -translate-y-1/2 pl-3 mt-10 z-10"
+      >
+        <div
+          class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-white"
+          data-v-6e07bfb2=""
+        >
+          <UiIcon icon="mdi-chevron-left" size="30" @click="goBack()" />
+        </div>
+      </div>
+    </div>
     <div class="flex justify-center h-full">
+      <button
+        @click="toggleBottomSheet()"
+        class="absolute top-4 bg-white text-black px-4 py-3 rounded-2xl shadow-md hover:font-bold z-10"
+      >
+        <HospitalListSheet
+          v-if="isHospitalListSheetVisible"
+          :hospitalList="hospitalListView"
+          :style="bottomSheetStyle"
+          @close="isHospitalListSheetVisible = false"
+        />
+
+        <UiIcon icon="mdi-menu" class="text-gray-300" />
+        목록 보기
+      </button>
       <div
         id="map"
         ref="mapContainer"
-        class="py-1 px-2 max-w-[460px] h-full sm:w-[460px] sm:h-full"
+        class="py-1 px-2 md:max-w-[460px] h-full w-[460px] sm:h-full"
       ></div>
     </div>
     <!-- Bottom Sheet 컴포넌트 -->
@@ -35,12 +61,16 @@ const props = defineProps({
   },
 });
 
+const router = useRouter();
+
 const localPositionX = ref(null);
 const localPositionY = ref(null);
 const map = ref(null);
 const markers = ref([]);
 const selectedHospital = ref(null);
 const isBottomSheetVisible = ref(false);
+const isHospitalListSheetVisible = ref(false);
+
 const mapContainer = ref(null);
 const bottomSheetStyle = computed(() => {
   if (mapContainer.value) {
@@ -57,6 +87,14 @@ const bottomSheetStyle = computed(() => {
 
 const emit = defineEmits(["update"]);
 
+/**
+ * 하단 sheet
+ */
+const toggleBottomSheet = () => {
+  isHospitalListSheetVisible.value = true;
+};
+
+const hospitalListView = ref([]);
 /**
  * 병원 목록을 조회하고 마커를 업데이트하는 함수
  */
@@ -75,6 +113,7 @@ const fetchHospital = async (locXPos, locYPos) => {
       ],
     });
     const hospitalList = data;
+    hospitalListView.value = data;
 
     console.log(hospitalList);
     // 현재 맵의 보이는 영역(Bounds) 가져오기
@@ -185,11 +224,19 @@ const addScript = () => {
   document.head.appendChild(script);
 };
 
+/**
+ * 뒤로가기
+ */
+const goBack = () => {
+  router.go(-1);
+};
+
 onMounted(() => {
   localPositionX.value = props.positionX;
   localPositionY.value = props.positionY;
   setTimeout(() => {
     addScript();
   }, 500);
+  fetchHospital();
 });
 </script>

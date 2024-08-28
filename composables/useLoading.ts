@@ -1,7 +1,8 @@
-import nProgress from '@/plugins/nprogress.client';
+// composables/useLoading.ts
+import { useNuxtApp } from '#app';
 
 export const useLoading = () => {
-  const app = useNuxtApp();
+  const { $nProgress } = useNuxtApp(); // nProgress를 가져옵니다.
 
   /**
    * 로딩 개수
@@ -18,8 +19,8 @@ export const useLoading = () => {
    */
   const startLoading = () => {
     count.value++;
-    if (!app.ssrContext && count.value === 1) {
-      nProgress.start();
+    if (count.value === 1) {
+      $nProgress.start(); // nProgress를 사용하여 로딩 시작
     }
   };
 
@@ -30,8 +31,8 @@ export const useLoading = () => {
     if (count.value > 0) {
       count.value--;
     }
-    if (!app.ssrContext && count.value === 0) {
-      nProgress.done();
+    if (count.value === 0) {
+      $nProgress.done(); // nProgress를 사용하여 로딩 종료
     }
   };
 

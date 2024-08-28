@@ -2,7 +2,9 @@
   <div class="inline">
     <UiFormLabel :text="label" :required="required" v-if="label" />
     <div class="flex relative items-center">
-      <label :for="id" class="mr-2 cursor-pointer select-none" v-if="leftSlot"><slot /></label>
+      <label :for="id" class="mr-2 cursor-pointer select-none" v-if="leftSlot"
+        ><slot
+      /></label>
       <input
         type="checkbox"
         v-model="localValue"
@@ -13,13 +15,23 @@
         :class="leftSlot ? 'right-0' : 'left-0'"
         :readonly="readonly"
         :disabled="disabled"
-        @change="(event) => onChange(event.target.checked ? trueValue : falseValue)"
+        @change="
+          (event) => onChange(event.target.checked ? trueValue : falseValue)
+        "
       />
       <div :class="classes" v-if="!icon">
-        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="21"
+          height="21"
+          viewBox="0 0 21 21"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             d="M10.5 21C16.299 21 21 16.299 21 10.5C21 4.70101 16.299 0 10.5 0C4.70101 0 0 4.70101 0 10.5C0 16.299 4.70101 21 10.5 21Z"
-            :class="localValue === trueValue ? 'fill-[#FF4E8B]' : 'fill-gray-400'"
+            :class="
+              localValue === trueValue ? 'fill-[#FF4E8B]' : 'fill-gray-400'
+            "
           />
           <path
             d="M7 10.7873L9.66 13.9998L14 8.1665"
@@ -32,7 +44,11 @@
       </div>
       <label
         :for="id"
-        :class="!leftSlot ? 'ml-1  mr-1 cursor-pointer select-none' : 'ml-1 cursor-pointer select-none'"
+        :class="
+          !leftSlot
+            ? 'ml-1  mr-1 cursor-pointer select-none'
+            : 'ml-1 cursor-pointer select-none'
+        "
         v-if="!leftSlot"
         ><slot
       /></label>
@@ -57,7 +73,7 @@
 </template>
 
 <script setup>
-import { useField } from 'vee-validate';
+import { useField } from "vee-validate";
 
 const props = defineProps({
   /**
@@ -65,6 +81,7 @@ const props = defineProps({
    */
   modelValue: {
     type: [Object, Array, String, Boolean],
+    default: false, // 기본값을 false로 설정
   },
   /**
    * 체크 시 입력값
@@ -162,11 +179,11 @@ const props = defineProps({
    */
   successMessage: {
     type: String,
-    default: '',
+    default: "",
   },
 });
 
-const emit = defineEmits(['update:modelValue', 'change']);
+const emit = defineEmits(["update:modelValue", "change"]);
 
 const attrs = useAttrs();
 
@@ -176,7 +193,7 @@ watch(
     if (newVal !== oldVal) {
       localValue.value = newVal;
     }
-  },
+  }
 );
 
 /**
@@ -187,7 +204,7 @@ const {
   errorMessage,
   handleChange,
   meta,
-} = useField(props.name || 'input', undefined, {
+} = useField(props.name || "input", undefined, {
   initialValue: props.modelValue,
 });
 
@@ -195,8 +212,20 @@ const {
  * 클래스
  */
 const classes = computed(() => {
-  const classArray = ['flex', 'justify-center', 'items-center', 'mr-1', 'w-5', 'w-5', 'cursor-pointer'];
-  classArray.push(...(!!errorMessage.value ? ['border-red-600', 'bg-red-50', 'focus:bg-white'] : ['border-gray-300']));
+  const classArray = [
+    "flex",
+    "justify-center",
+    "items-center",
+    "mr-1",
+    "w-5",
+    "w-5",
+    "cursor-pointer",
+  ];
+  classArray.push(
+    ...(!!errorMessage.value
+      ? ["border-red-600", "bg-red-50", "focus:bg-white"]
+      : ["border-gray-300"])
+  );
   if (attrs.class) {
     classArray.push(attrs.class);
   }
@@ -209,8 +238,8 @@ const classes = computed(() => {
 const onChange = (value) => {
   localValue.value = value;
   handleChange(localValue.value);
-  emit('update:modelValue', localValue.value);
-  emit('change', localValue.value);
+  emit("update:modelValue", localValue.value);
+  emit("change", localValue.value);
 };
 </script>
 
