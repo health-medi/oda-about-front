@@ -9,7 +9,7 @@
               v-if="hasMedicalStaffImage"
               class="bg-[#fdd3e1] text-[#FF4E8B] font-bold rounded-lg px-2 py-1 inline-block mt-1"
             >
-              {{ limit(majorSubject, 18) }}
+              {{ limit(majorSubject, 25) }}
             </span>
             <p v-if="hasMedicalStaffImage" class="text-gray-600 mt-1">
               {{ medicalStaffName }}
