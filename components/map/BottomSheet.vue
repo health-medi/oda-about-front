@@ -9,7 +9,7 @@
               v-if="hasMedicalStaffImage"
               class="bg-[#fdd3e1] text-[#FF4E8B] font-bold rounded-lg px-2 py-1 inline-block mt-1"
             >
-              {{ majorSubject }}
+              {{ limitString(majorSubject, 18) }}
             </span>
             <p v-if="hasMedicalStaffImage" class="text-gray-600 mt-1">
               {{ medicalStaffName }}
@@ -76,8 +76,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-
+import { limitString } from "@/plugins/utils/string.utils";
 const props = defineProps({
   hospital: {
     type: Object,
