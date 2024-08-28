@@ -170,26 +170,33 @@ const fetchHospital = async (locXPos, locYPos) => {
     const hospitalList = data;
     hospitalListView.value = data;
 
+    // 현재 맵의 보이는 영역(Bounds) 가져오기
     const bounds = map.value.getBounds();
+
+    // 기존 마커를 검사하여 맵 영역 밖에 있는 마커 제거
     markers.value = markers.value.filter((marker) => {
       if (bounds.contain(marker.getPosition())) {
-        return true;
+        return true; // 맵 영역 내에 있는 마커는 유지
       } else {
-        marker.setMap(null);
+        marker.setMap(null); // 맵 영역 밖에 있는 마커는 제거
         return false;
       }
     });
 
-    // 비동기 처리 최적화
+    // 새로운 병원 데이터에 대해 마커 추가
     const markerPromises = hospitalList.map(async (hospital) => {
       try {
+        // createMarkerImage 함수를 사용하여 마커 이미지 생성
         const markerImage = await createMarkerImage(hospital);
+
+        // 마커 생성
         const marker = new kakao.maps.Marker({
           position: new kakao.maps.LatLng(hospital.locYPos, hospital.locXPos),
-          image: markerImage,
+          image: markerImage, // 커스텀 마커 이미지 설정
           map: map.value,
         });
 
+        // 마커 클릭 이벤트 추가
         kakao.maps.event.addListener(marker, "click", () => {
           console.log(hospital);
           selectedHospital.value = hospital;
@@ -207,82 +214,6 @@ const fetchHospital = async (locXPos, locYPos) => {
     console.error("Failed to fetch hospitalList:", error);
   }
 };
-
-/**
- * 병원 목록을 조회하고 마커를 업데이트하는 함수
- */
-// const fetchHospital = async (locXPos, locYPos) => {
-//   try {
-//     const { data } = await useHospital().fetchList({
-//       conditions: [
-//         {
-//           key: "locXPos",
-//           value: locXPos,
-//         },
-//         {
-//           key: "locYPos",
-//           value: locYPos,
-//         },
-//       ],
-//     });
-//     const hospitalList = data;
-//     hospitalListView.value = data;
-
-//     // 현재 맵의 보이는 영역(Bounds) 가져오기
-//     const bounds = map.value.getBounds();
-
-//     // 기존 마커를 검사하여 맵 영역 밖에 있는 마커 제거
-//     markers.value = markers.value.filter((marker) => {
-//       if (bounds.contain(marker.getPosition())) {
-//         return true; // 맵 영역 내에 있는 마커는 유지
-//       } else {
-//         marker.setMap(null); // 맵 영역 밖에 있는 마커는 제거
-//         return false;
-//       }
-//     });
-
-//     // 새로운 병원 데이터에 대해 마커 추가
-//     hospitalList.forEach((hospital) => {
-//       // 마커 이미지의 URL, 사이즈 등을 설정
-//       let attachId;
-
-//       let imageSrc = "";
-//       if (hospital.medicalStaffList && hospital.medicalStaffList.length > 0) {
-//         attachId = hospital.medicalStaffList[0].attachBag.image[0].attachId;
-//         imageSrc = `/api/attach/view/${attachId}`; // 마커 이미지 URL
-//       }
-//       if (imageSrc) {
-//         const imageSize = new kakao.maps.Size(50, 50); // 마커 이미지 크기
-//         const imageOption = { offset: new kakao.maps.Point(25, 50) }; // 마커의 중심좌표 설정
-
-//         // 마커 이미지 생성
-//         const markerImage = new kakao.maps.MarkerImage(
-//           imageSrc,
-//           imageSize,
-//           imageOption
-//         );
-
-//         // 마커 생성
-//         const marker = new kakao.maps.Marker({
-//           position: new kakao.maps.LatLng(hospital.locYPos, hospital.locXPos),
-//           image: markerImage, // 커스텀 마커 이미지 설정
-//           map: map.value,
-//         });
-
-//         // 마커 클릭 이벤트 추가
-//         kakao.maps.event.addListener(marker, "click", () => {
-//           console.log(hospital);
-//           selectedHospital.value = hospital;
-//           isBottomSheetVisible.value = true;
-//         });
-
-//         markers.value.push(marker);
-//       }
-//     });
-//   } catch (error) {
-//     console.error("Failed to fetch hospitalList:", error);
-//   }
-// };
 
 /**
  * 카카오 지도 초기화
