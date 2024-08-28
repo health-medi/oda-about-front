@@ -44,6 +44,8 @@
 </template>
 
 <script setup>
+import noImage from "@/assets/images/common/no-image.png";
+
 const props = defineProps({
   /**
    * X 좌표값 (경도)
@@ -115,7 +117,6 @@ const fetchHospital = async (locXPos, locYPos) => {
     const hospitalList = data;
     hospitalListView.value = data;
 
-    console.log(hospitalList);
     // 현재 맵의 보이는 영역(Bounds) 가져오기
     const bounds = map.value.getBounds();
 
@@ -137,7 +138,8 @@ const fetchHospital = async (locXPos, locYPos) => {
       let imageSrc = "";
       if (hospital.medicalStaffList && hospital.medicalStaffList.length > 0) {
         attachId = hospital.medicalStaffList[0].attachBag.image[0].attachId;
-        imageSrc = `/api/attach/view/${attachId}`; // 마커 이미지 URL
+        // imageSrc = `/api/attach/view/${attachId}`; // 마커 이미지 URL
+        imageSrc = attachId ? `/api/attach/view/${attachId}` : noImage;
       }
       const imageSize = new kakao.maps.Size(50, 50); // 마커 이미지 크기
       const imageOption = { offset: new kakao.maps.Point(25, 50) }; // 마커의 중심좌표 설정
