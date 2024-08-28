@@ -97,6 +97,7 @@ const toggleBottomSheet = () => {
 };
 
 const hospitalListView = ref([]);
+
 /**
  * 병원 목록을 조회하고 마커를 업데이트하는 함수
  */
@@ -141,31 +142,33 @@ const fetchHospital = async (locXPos, locYPos) => {
         // imageSrc = `/api/attach/view/${attachId}`; // 마커 이미지 URL
         imageSrc = attachId ? `/api/attach/view/${attachId}` : noImage;
       }
-      const imageSize = new kakao.maps.Size(50, 50); // 마커 이미지 크기
-      const imageOption = { offset: new kakao.maps.Point(25, 50) }; // 마커의 중심좌표 설정
+      if (imageSrc) {
+        const imageSize = new kakao.maps.Size(50, 50); // 마커 이미지 크기
+        const imageOption = { offset: new kakao.maps.Point(25, 50) }; // 마커의 중심좌표 설정
 
-      // 마커 이미지 생성
-      const markerImage = new kakao.maps.MarkerImage(
-        imageSrc,
-        imageSize,
-        imageOption
-      );
+        // 마커 이미지 생성
+        const markerImage = new kakao.maps.MarkerImage(
+          imageSrc,
+          imageSize,
+          imageOption
+        );
 
-      // 마커 생성
-      const marker = new kakao.maps.Marker({
-        position: new kakao.maps.LatLng(hospital.locYPos, hospital.locXPos),
-        image: markerImage, // 커스텀 마커 이미지 설정
-        map: map.value,
-      });
+        // 마커 생성
+        const marker = new kakao.maps.Marker({
+          position: new kakao.maps.LatLng(hospital.locYPos, hospital.locXPos),
+          image: markerImage, // 커스텀 마커 이미지 설정
+          map: map.value,
+        });
 
-      // 마커 클릭 이벤트 추가
-      kakao.maps.event.addListener(marker, "click", () => {
-        console.log(hospital);
-        selectedHospital.value = hospital;
-        isBottomSheetVisible.value = true;
-      });
+        // 마커 클릭 이벤트 추가
+        kakao.maps.event.addListener(marker, "click", () => {
+          console.log(hospital);
+          selectedHospital.value = hospital;
+          isBottomSheetVisible.value = true;
+        });
 
-      markers.value.push(marker);
+        markers.value.push(marker);
+      }
     });
   } catch (error) {
     console.error("Failed to fetch hospitalList:", error);
