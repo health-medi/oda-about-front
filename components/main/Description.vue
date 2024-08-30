@@ -149,10 +149,6 @@
         class="flex banner_wraper relative h-[270px] md:h-[480px] w-full overflow-hidden"
       >
         <img
-          class="banner w-[120px] md:w-[241px] mb-8 md:mb-12"
-          src="@/assets/images/main/box301.png"
-        />
-        <img
           class="banner top-12 w-[120px] md:w-[241px] mt-8 md:mt-12"
           src="@/assets/images/main/box302.png"
         />
