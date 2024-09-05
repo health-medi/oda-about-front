@@ -101,25 +101,26 @@ const hospitalListView = ref([]);
 /**
  * 병원 목록을 조회하고 마커를 업데이트하는 함수
  */
-const fetchHospital = async (locXPos, locYPos) => {
+const fetchHospital = async () => {
   try {
-    const { data } = await useHospital().fetchList({
-      conditions: [
-        {
-          key: "locXPos",
-          value: locXPos,
-        },
-        {
-          key: "locYPos",
-          value: locYPos,
-        },
-      ],
-    });
-    const hospitalList = data;
-    hospitalListView.value = data;
-
     // 현재 맵의 보이는 영역(Bounds) 가져오기
     const bounds = map.value.getBounds();
+    const swLatLng = bounds.getSouthWest(); // 좌하단 좌표
+    const neLatLng = bounds.getNorthEast(); // 우상단 좌표
+
+    // 좌표를 조건으로 병원 목록 조회
+    const { data } = await useHospital().fetchList({
+      conditions: [
+        { key: "swLng", value: swLatLng.getLng() }, // 좌하단 경도
+        { key: "swLat", value: swLatLng.getLat() }, // 좌하단 위도
+        { key: "neLng", value: neLatLng.getLng() }, // 우상단 경도
+        { key: "neLat", value: neLatLng.getLat() }, // 우상단 위도
+      ],
+    });
+
+    const hospitalList = data;
+    hospitalListView.value = data;
+    console.log(hospitalList);
 
     // 기존 마커를 검사하여 맵 영역 밖에 있는 마커 제거
     markers.value = markers.value.filter((marker) => {
@@ -152,7 +153,6 @@ const fetchHospital = async (locXPos, locYPos) => {
 
       // 마커 클릭 이벤트 추가
       kakao.maps.event.addListener(marker, "click", () => {
-        console.log(hospital);
         selectedHospital.value = hospital;
         isBottomSheetVisible.value = true;
       });
@@ -183,14 +183,21 @@ const initMap = () => {
     map.value = new kakao.maps.Map(mapContainer, mapOption);
 
     // 초기 병원 목록 조회
-    fetchHospital(localPositionX.value, localPositionY.value, 1000);
+    fetchHospital();
 
     // 지도 이동 이벤트 등록
     kakao.maps.event.addListener(map.value, "center_changed", () => {
       const center = map.value.getCenter();
       localPositionX.value = center.getLng();
       localPositionY.value = center.getLat();
-      fetchHospital(localPositionX.value, localPositionY.value, 1000);
+    });
+
+    // 지도 줌 레벨 변경 시 데이터 재조회
+    kakao.maps.event.addListener(map.value, "zoom_changed", () => {
+      const center = map.value.getCenter();
+      localPositionX.value = center.getLng();
+      localPositionY.value = center.getLat();
+      fetchHospital();
     });
 
     // 지도 클릭 이벤트 등록 (마커 이동)
@@ -228,9 +235,16 @@ const goBack = () => {
 onMounted(() => {
   localPositionX.value = props.positionX;
   localPositionY.value = props.positionY;
+
   setTimeout(() => {
     addScript();
   }, 500);
-  fetchHospital();
+
+  // 위치 값이 초기화된 후에 병원 목록을 가져오도록 수정
+  watch([localPositionX, localPositionY], ([newX, newY]) => {
+    if (newX && newY) {
+      fetchHospital(newX, newY);
+    }
+  });
 });
 </script>
