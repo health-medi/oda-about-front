@@ -73,8 +73,8 @@
     <UiDivider class="mb-10" />
     <div class="application-info">
       <UiFormLabel text="신청 정보" class="font-bold text-gray-500 mb-5" />
-      <h3 class="text-xl font-bold mb-6">
-        연락처를 남겨주세요. 한의원에서 상담 시간에 연락드리겠습니다.
+      <h3 class="text-md mb-6">
+        연락처를 남겨주세요. 한의원에서 확인 후 연락드립니다.
       </h3>
       <ValidateForm :validation-schema="validationSchema" @submit="onSubmit">
         <div class="mb-5">

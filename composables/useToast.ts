@@ -1,5 +1,5 @@
-import { useToast as useVueToast } from 'vue-toastification';
-import UiToastDefault from '@/components/ui/toast/Default.vue';
+import { useToast as useVueToast } from "vue-toastification";
+import UiToastDefault from "@/components/ui/toast/Default.vue";
 
 class ToastConfig {
   /**
@@ -18,7 +18,7 @@ class ToastConfig {
    * 유지시간 (ms)
    * 기본값: 5000
    */
-  timeout?: number | 5000;
+  timeout?: number | 3000;
 }
 
 export const useToast = () => {
@@ -52,9 +52,9 @@ export const useToast = () => {
   const noValid = async () => {
     clear();
     useToast().open({
-      title: '다시 확인해 주세요!',
-      msg: '잘못 입력된 항목이 있습니다.',
-      type: 'error',
+      title: "다시 확인해 주세요!",
+      msg: "잘못 입력된 항목이 있습니다.",
+      type: "error",
     });
   };
 

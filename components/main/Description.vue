@@ -405,9 +405,8 @@
         <a
           class="inline-block rounded-full bg-[#FF6079] py-2 md:py-4 px-10 md:px-20 mt-5 md:mt-10 text-base md:text-2xl font-bold hover:bg-[#ff3e5c] transition-all"
           href="#"
-          @click="checkMobile()"
         >
-          상담 신청 하기
+          <NuxtLink to="/map">상담 신청 하기</NuxtLink>
         </a>
       </div>
     </section>
@@ -418,7 +417,6 @@ import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
-const { checkMobile } = useCheckOs();
 // 숫자 애니메이션에 사용될 counter 데이터
 const counters = ref([
   { start: 0, end: 23357 },

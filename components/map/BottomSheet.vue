@@ -64,7 +64,7 @@
         </div>
         <NuxtLink :to="`/hospital/${hospital.hsptSeq}`">
           <UiButton
-            text="이한의원에 상담 신청"
+            text="오다 상담 신청하기"
             size="xl"
             class="w-full"
             variant="primary"
