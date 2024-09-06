@@ -19,12 +19,6 @@
                   </h2>
                   <div class="flex grid-cols-2 gap-2">
                     <span
-                      v-if="majorSubject(item)"
-                      class="bg-[#fdd3e1] text-[#FF4E8B] font-bold rounded-md px-1 py-1 inline-block mt-1 text-xs"
-                    >
-                      {{ majorSubject(item) }}
-                    </span>
-                    <span
                       v-if="medicalStaffName(item)"
                       class="text-gray-600 mt-1"
                     >
@@ -67,19 +61,18 @@
         <div v-if="hospitalList.length === 0">
           해당 지역에 한의원이 없습니다.
         </div>
+        <button
+          @click="$emit('close')"
+          class="w-full py-2 mt-4 text-center bg-gray-200 rounded-lg hover:bg-black hover:text-white"
+        >
+          닫기
+        </button>
       </div>
-      <button
-        @click="$emit('close')"
-        class="w-full py-2 mt-4 text-center bg-gray-200 rounded-lg hover:bg-black hover:text-white"
-      >
-        닫기
-      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { limitString } from "@/plugins/utils/string.utils";
 const props = defineProps({
   hospitalList: {
     type: Array,
@@ -92,11 +85,6 @@ const router = useRouter();
 // 의사 이미지가 있는지 여부를 확인하는 함수
 const hasMedicalStaffImage = (item) => {
   return item.medicalStaffList?.[0]?.attachBag?.image?.[0]?.attachId != null;
-};
-
-// 의사의 주요 과목을 반환하는 함수
-const majorSubject = (item) => {
-  return item.medicalStaffList?.[0]?.majorSubject;
 };
 
 // 의사의 이름을 반환하는 함수
