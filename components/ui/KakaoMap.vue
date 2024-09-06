@@ -120,7 +120,6 @@ const fetchHospital = async () => {
 
     const hospitalList = data;
     hospitalListView.value = data;
-    console.log(hospitalList);
 
     // 기존 마커를 검사하여 맵 영역 밖에 있는 마커 제거
     markers.value = markers.value.filter((marker) => {

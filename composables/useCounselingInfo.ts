@@ -43,7 +43,6 @@ export const useCounselingInfo = () => {
    * @returns
    */
   const createItem = async (counselingInfo: CounselingInfo) => {
-    console.log(counselingInfo);
     const { data } = await $post(`/api/counseling-info`, {
       data: counselingInfo,
     });
