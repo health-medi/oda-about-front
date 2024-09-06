@@ -73,6 +73,7 @@
 </template>
 
 <script setup>
+import { limitString } from "@/plugins/utils/string.utils";
 const props = defineProps({
   hospitalList: {
     type: Array,
