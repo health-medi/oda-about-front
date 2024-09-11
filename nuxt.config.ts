@@ -49,10 +49,11 @@ export default defineNuxtConfig({
         name: "naver-site-verification",
         content: "eb7c0e3550aefef06d1b52e0f0fc9f13f9bea895",
       },
-      { name: "og:title", content: "오다 - 오늘의 다이어트" },
+      { name: "og:title", content: "오다한의원 - 오늘의 다이어트" },
       {
         name: "og:description",
-        content: "오다 -오늘의 다이어트 홈페이지입니다.",
+        content:
+          "오다한의원은 전담 한의사가 체질분석 및 진단을 통해 5단계 맞춤 오다환을 처방하는 다이어트 전문한의원입니다. 시작부터 다른 오늘의 다이어트는 오다입니다.",
       },
       { name: "og:type", content: "website" },
     ],
