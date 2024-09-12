@@ -52,33 +52,13 @@
             <li class="mb-6">
               <span>사업자등록번호 6279101006</span>
               <span class="border-l border-white/[0.6] ml-2.5 pl-2.5"
-                >통신판매신고 제 2019-서울강남-05270 호</span
+                >통신판매신고 제2024-서울종로-1090호</span
               >
             </li>
             <li>
               <span>Copyrightⓒ 오늘의 다이어트 All Rights Reserved.</span>
             </li>
           </ul>
-          <!-- <ul class="flex mt-6 md:mt-0">
-            <a
-              class="block mr-4 md:mr-7"
-              href="https://blog.naver.com/odadiet"
-              target="_blank"
-              ><img
-                class="w-[17px] md:w-auto"
-                src="@/assets/images/main/footer1.png"
-                alt="naver blog"
-            /></a>
-            <a
-              class="block"
-              href="https://www.youtube.com/@ODADIETTV"
-              target="_blank"
-              ><img
-                class="w-[17px] md:w-auto"
-                src="@/assets/images/main/footer2.png"
-                alt="youtube"
-            /></a>
-          </ul> -->
         </div>
       </section>
       <section
@@ -97,5 +77,3 @@
     </footer>
   </div>
 </template>
-<script setup>
-</script>
