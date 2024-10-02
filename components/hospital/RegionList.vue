@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-auto scrollbar-hide">
+  <div class="overflow-x-auto scrollbar-hide pb-3">
     <ul class="flex gap-2">
       <li
         v-for="region in regions"
