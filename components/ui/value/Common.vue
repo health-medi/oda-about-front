@@ -8,11 +8,7 @@
     /></NuxtLink>
     <UiValueDate :value="value" v-else-if="format === 'date'" />
     <UiValueCurrency :value="value" v-else-if="format === 'currency'" />
-    <span
-      v-else-if="format === 'phone'"
-      class="text-md whitespace-pre-wrap"
-      :class="classList"
-    >
+    <span v-else-if="format === 'phone'" class="text-md whitespace-pre-wrap">
       {{ phoneString(value, isMasking) }}
     </span>
     <span class="whitespace-nowrap" v-else>{{ value }}</span>

@@ -1,7 +1,8 @@
-import { useApi, CommonParam } from '@/composables/useApi';
+import { CommonParam, useApi } from "@/composables/useApi";
 
 export const useHospital = () => {
-  const { $get, $post, $put, $delete, parseRequestConfig, setPagingResult } = useApi();
+  const { $get, $post, $put, $delete, parseRequestConfig, setPagingResult } =
+    useApi();
 
   /**
    * 병원 객체
@@ -19,6 +20,10 @@ export const useHospital = () => {
      * 상점 아이디 MID
      */
     mid: string;
+    /**
+     * 지역 코드
+     */
+    regionCd: string;
     /**
      * 진료과목
      */
@@ -66,8 +71,20 @@ export const useHospital = () => {
    *
    * @param commonParam 공통 인자값
    */
+  const fetchMapList = async (commonParam: CommonParam) => {
+    const { data, headers } = await $get(
+      "/api/hospital",
+      parseRequestConfig(commonParam)
+    );
+    setPagingResult(commonParam, headers);
+    return Promise.resolve({ data, commonParam });
+  };
+
   const fetchList = async (commonParam: CommonParam) => {
-    const { data, headers } = await $get('/api/hospital', parseRequestConfig(commonParam));
+    const { data, headers } = await $get(
+      "/api/hospital/list",
+      parseRequestConfig(commonParam)
+    );
     setPagingResult(commonParam, headers);
     return Promise.resolve({ data, commonParam });
   };
@@ -88,7 +105,7 @@ export const useHospital = () => {
    * @param hospital 병원 객체
    */
   const createItem = async (hospital: Hospital) => {
-    const { data } = await $post('/api/hospital', {
+    const { data } = await $post("/api/hospital", {
       data: hospital,
     });
     return Promise.resolve({ data });
@@ -117,6 +134,7 @@ export const useHospital = () => {
   };
 
   return {
+    fetchMapList,
     fetchList,
     fetchItem,
     createItem,

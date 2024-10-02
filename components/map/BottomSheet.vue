@@ -1,7 +1,13 @@
 <template>
-  <div class="bottom-sheet-overlay" @click="$emit('close')">
-    <div class="bottom-sheet" @click.stop>
-      <div class="bottom-sheet-content p-4">
+  <div
+    class="fixed inset-0 bg-black bg-opacity-50 z-10 flex items-end"
+    @click="$emit('close')"
+  >
+    <div
+      class="bg-white w-full max-h-[80vh] rounded-t-2xl p-5 shadow-md z-11"
+      @click.stop
+    >
+      <div class="max-h-[calc(80vh-40px)] overflow-y-auto p-4">
         <div class="flex items-center mb-4">
           <div class="flex-grow">
             <h2 class="text-2xl font-bold">{{ hospitalName }}</h2>
@@ -159,33 +165,3 @@ const formatTime = (time) => {
   return `${period} ${formattedHours}:${minutes.toString().padStart(2, "0")}`;
 };
 </script>
-
-<style scoped>
-.bottom-sheet-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-  display: flex;
-  align-items: flex-end;
-}
-
-.bottom-sheet {
-  background-color: white;
-  width: 100%;
-  max-height: 80vh;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 11;
-}
-
-.bottom-sheet-content {
-  max-height: calc(80vh - 40px);
-  overflow-y: auto;
-}
-</style>

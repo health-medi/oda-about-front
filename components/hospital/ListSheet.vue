@@ -1,7 +1,13 @@
 <template>
-  <div class="bottom-sheet-overlay">
-    <div class="bottom-sheet" @click.stop>
-      <div class="bottom-sheet-content pt-4">
+  <div
+    class="fixed inset-0 bg-black bg-opacity-50 z-10 flex items-end"
+    @click="closeSheet"
+  >
+    <div
+      class="bg-white w-full max-h-[80vh] rounded-t-2xl p-5 shadow-md z-11"
+      @click.stop
+    >
+      <div class="max-h-[calc(80vh-40px)] overflow-y-auto">
         <div v-for="item in hospitalList" :key="item.id" class="py-2">
           <NuxtLink :to="`/hospital/${item.hsptSeq}`">
             <div class="border rounded-xl p-5">
@@ -61,12 +67,6 @@
         <div v-if="hospitalList.length === 0">
           해당 지역에 한의원이 없습니다.
         </div>
-        <button
-          @click="$emit('close')"
-          class="w-full py-2 mt-4 text-center bg-gray-200 rounded-lg hover:bg-black hover:text-white"
-        >
-          닫기
-        </button>
       </div>
     </div>
   </div>
@@ -82,6 +82,7 @@ const props = defineProps({
 });
 
 const router = useRouter();
+const emit = defineEmits(["close"]);
 
 // 의사 이미지가 있는지 여부를 확인하는 함수
 const hasMedicalStaffImage = (item) => {
@@ -101,30 +102,8 @@ const getDoctorImageUrl = (item) => {
 const goHospital = (item) => {
   router.push(`/hospital/${item.hsptSeq}`);
 };
+
+const closeSheet = () => {
+  emit("close", false);
+};
 </script>
-
-<style scoped>
-.bottom-sheet-overlay {
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-  display: flex;
-  align-items: flex-end;
-}
-
-.bottom-sheet {
-  background-color: white;
-  width: 100%;
-  max-height: 80vh;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
-  z-index: 11;
-}
-
-.bottom-sheet-content {
-  max-height: calc(80vh - 40px);
-  overflow-y: auto;
-}
-</style>

@@ -1,11 +1,6 @@
 <template>
   <div>
     <section>
-      <img
-        class="absolute left-4 md:left-8 xl:left-20 top-4 md:top-8 w-[125.5px] md:w-auto z-10"
-        src="@/assets/images/main/top_header.png"
-        alt="ODA:아름다운 변화가 있다"
-      />
       <div
         class="absolute left-4 md:left-44 xl:left-[360px] top-24 md:top-48 z-10"
       >

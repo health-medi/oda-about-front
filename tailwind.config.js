@@ -40,9 +40,6 @@ module.exports = {
       maxWidth: {
         fit: "fit-content",
       },
-      underlineOffset: {
-        1: "1px;",
-      },
     },
   },
   variants: {

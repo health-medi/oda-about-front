@@ -1,118 +1,121 @@
 <template>
-  <div class="relative max-w-lg mx-auto bg-white">
-    <div class="absolute left-0 top-1/2 transform -translate-y-1/2 pl-3 mt-2">
-      <UiIcon icon="mdi-chevron-left" size="32" @click="goBack()" />
-    </div>
-    <div class="text-center text-md pt-3">
-      <h2>한의원 상담 신청</h2>
-    </div>
-  </div>
-  <div class="p-6 bg-white max-w-lg mx-auto min-h-screen">
-    <h2 class="text-xl font-bold mb-2">
-      <UiValueCommon :value="localHospital.hsptNm" />
-    </h2>
-    <div class="flex items-center text-gray-500">
-      <UiIcon icon="mdi-clock-outline" size="20" class="mr-2" />
-      <span
-        :class="{
-          'text-[#FF4E8B] font-bold': consultationStatus.status === 'available',
-          'text-gray-500 font-bold':
-            consultationStatus.status === 'unavailable',
-        }"
-      >
-        {{ consultationStatus.message }}</span
-      >
-    </div>
-    <div class="flex items-center text-gray-500">
-      <UiIcon icon="mdi-map-marker-outline" size="20" class="mr-2" />
-      <UiValueCommon :value="localHospital.hsptAddr" />
-    </div>
-    <div class="flex items-center text-gray-500 mb-5">
-      <UiIcon icon="mdi-phone-outline" size="20" class="mr-2" />
-      <a :href="`tel:${localHospital.counselingPhoneNo}`">
-        <UiValueCommon
-          :value="localHospital.counselingPhoneNo"
-          format="phone"
-        />
-      </a>
-    </div>
-    <div class="flex items-center mb-5" v-if="localHospital.medicalStaffList">
-      <img
-        :src="`/api/attach/view/${localHospital.medicalStaffList?.[0]?.attachBag?.image?.[0]?.attachId}`"
-        alt="의사 사진"
-        class="w-16 h-16 rounded-full object-cover border mr-4"
-      />
-      <div>
-        <span
-          v-if="localHospital.medicalStaffList?.[0]?.majorSubject"
-          class="bg-[#fdd3e1] text-[#FF4E8B] font-bold rounded-md px-1 py-1 inline-block mt-1 text-xs"
-        >
-          {{ localHospital.medicalStaffList?.[0]?.majorSubject }}
-        </span>
-        <h3 class="text-md font-bold text-gray-500 mt-1">
-          {{ localHospital.medicalStaffList?.[0]?.medicalStaffNm }}
-        </h3>
+  <div>
+    <div class="relative max-w-lg mx-auto bg-white">
+      <div class="absolute left-0 top-1/2 transform -translate-y-1/2 pl-3 mt-2">
+        <UiIcon icon="mdi-chevron-left" size="32" @click="goBack()" />
+      </div>
+      <div class="text-center text-lg pt-3">
+        <h1>한의원 상담 신청</h1>
       </div>
     </div>
-    <div
-      class="bg-gray-100 p-4 rounded-lg text-gray-700 mb-5 text-sm font-bold"
-      v-if="localHospital.hsptIntro != null"
-    >
-      “{{ localHospital.hsptIntro }}”
-    </div>
-    <div class="mb-10">
-      <UiButton
-        type="button"
-        text="상담 시간 보기"
-        size="md"
-        class="rounded-3xl w-full"
-        prefixIcon="mdi-clock-outline"
-        @click="showTimeTable()"
+    <div class="p-6 bg-white max-w-lg mx-auto min-h-screen">
+      <h2 class="text-xl font-bold mb-2">
+        <UiValueCommon :value="localHospital.hsptNm" />
+      </h2>
+      <div class="flex items-center text-gray-500">
+        <UiIcon icon="mdi-clock-outline" size="20" class="mr-2" />
+        <span
+          :class="{
+            'text-[#FF4E8B] font-bold':
+              consultationStatus.status === 'available',
+            'text-gray-500 font-bold':
+              consultationStatus.status === 'unavailable',
+          }"
+        >
+          {{ consultationStatus.message }}</span
+        >
+      </div>
+      <div class="flex items-center text-gray-500">
+        <UiIcon icon="mdi-map-marker-outline" size="20" class="mr-2" />
+        <UiValueCommon :value="localHospital.hsptAddr" />
+      </div>
+      <div class="flex items-center text-gray-500 mb-5">
+        <UiIcon icon="mdi-phone-outline" size="20" class="mr-2" />
+        <a :href="`tel:${localHospital.counselingPhoneNo}`">
+          <UiValueCommon
+            :value="localHospital.counselingPhoneNo"
+            format="phone"
+          />
+        </a>
+      </div>
+      <div class="flex items-center mb-5" v-if="localHospital.medicalStaffList">
+        <img
+          :src="`/api/attach/view/${localHospital.medicalStaffList?.[0]?.attachBag?.image?.[0]?.attachId}`"
+          alt="의사 사진"
+          class="w-16 h-16 rounded-full object-cover border mr-4"
+        />
+        <div>
+          <span
+            v-if="localHospital.medicalStaffList?.[0]?.majorSubject"
+            class="bg-[#fdd3e1] text-[#FF4E8B] font-bold rounded-md px-1 py-1 inline-block mt-1 text-xs"
+          >
+            {{ localHospital.medicalStaffList?.[0]?.majorSubject }}
+          </span>
+          <h3 class="text-md font-bold text-gray-500 mt-1">
+            {{ localHospital.medicalStaffList?.[0]?.medicalStaffNm }}
+          </h3>
+        </div>
+      </div>
+      <div
+        class="bg-gray-100 p-4 rounded-lg text-gray-700 mb-5 text-sm font-bold"
+        v-if="localHospital.hsptIntro != null"
+      >
+        “{{ localHospital.hsptIntro }}”
+      </div>
+      <div class="mb-10">
+        <UiButton
+          type="button"
+          text="상담 시간 보기"
+          size="md"
+          class="rounded-3xl w-full"
+          prefixIcon="mdi-clock-outline"
+          @click="showTimeTable()"
+        />
+      </div>
+      <UiDivider class="mb-10" />
+      <div class="application-info">
+        <UiFormLabel text="신청 정보" class="font-bold text-gray-500 mb-5" />
+        <h3 class="text-md mb-6">
+          연락처를 남겨주세요. 한의원에서 확인 후 연락드립니다.
+        </h3>
+        <ValidateForm :validation-schema="validationSchema" @submit="onSubmit">
+          <div class="mb-5">
+            <UiFormLabel text="이름" class="text-gray-500 font-bold" required />
+            <UiInput type="text" placeholder="본인 이름" name="usrNm" />
+          </div>
+          <div>
+            <UiFormLabel
+              text="휴대폰 번호"
+              class="text-gray-500 font-bold"
+              required
+            />
+            <UiInput type="phone" placeholder="11자리 숫자" name="phoneNo" />
+          </div>
+          <div class="flex items-center">
+            <UiCheckbox
+              id="contact-type-checkbox"
+              name="contactType"
+              true-value="T"
+              false-value="C"
+              >통화 대신 문자나 카톡으로 받기</UiCheckbox
+            >
+          </div>
+          <UiButton
+            type="submit"
+            text="상담 신청 완료하기"
+            variant="primary"
+            size="xl"
+            class="rounded-3xl w-full"
+            block
+          />
+        </ValidateForm>
+      </div>
+      <HospitalTimeTableSheet
+        :diagnosisInfo="localHospital.diagnosisInfoList"
+        v-if="isSchedule"
+        @close="isSchedule = false"
       />
     </div>
-    <UiDivider class="mb-10" />
-    <div class="application-info">
-      <UiFormLabel text="신청 정보" class="font-bold text-gray-500 mb-5" />
-      <h3 class="text-md mb-6">
-        연락처를 남겨주세요. 한의원에서 확인 후 연락드립니다.
-      </h3>
-      <ValidateForm :validation-schema="validationSchema" @submit="onSubmit">
-        <div class="mb-5">
-          <UiFormLabel text="이름" class="text-gray-500 font-bold" required />
-          <UiInput type="text" placeholder="본인 이름" name="usrNm" />
-        </div>
-        <div>
-          <UiFormLabel
-            text="휴대폰 번호"
-            class="text-gray-500 font-bold"
-            required
-          />
-          <UiInput type="phone" placeholder="11자리 숫자" name="phoneNo" />
-        </div>
-        <div class="flex items-center">
-          <UiCheckbox
-            id="contact-type-checkbox"
-            name="contactType"
-            true-value="T"
-            false-value="C"
-            >통화 대신 문자나 카톡으로 받기</UiCheckbox
-          >
-        </div>
-        <UiButton
-          type="submit"
-          text="상담 신청 완료하기"
-          variant="primary"
-          size="xl"
-          class="rounded-3xl w-full"
-          block
-        />
-      </ValidateForm>
-    </div>
-    <HospitalTimeTableSheet
-      :diagnosisInfo="localHospital.diagnosisInfoList"
-      v-if="isSchedule"
-      @close="isSchedule = false"
-    />
   </div>
 </template>
 

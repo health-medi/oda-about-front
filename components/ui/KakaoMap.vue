@@ -1,44 +1,57 @@
 <template>
   <div class="relative h-screen">
-    <div class="relative max-w-lg mx-auto">
-      <div
-        class="absolute left-3 md:left-10 top-1/2 transform -translate-y-1/2 pl-3 mt-10 z-10"
-      >
+    <div class="flex justify-center h-full">
+      <div class="relative justify-start">
         <div
-          class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-white"
-          data-v-6e07bfb2=""
+          class="absolute left-14 md:left-5 transform -translate-y-1/2 mt-10 z-10"
         >
-          <UiIcon icon="mdi-chevron-left" size="30" @click="goBack()" />
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-full shadow-lg bg-white text-black cursor-pointer border-[1px] border-gray-300"
+          >
+            <UiIcon icon="mdi-chevron-left" size="35" @click="goBack()" />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="flex justify-center h-full">
-      <button
-        @click="toggleBottomSheet()"
-        class="absolute top-4 bg-white text-black px-4 py-3 rounded-2xl shadow-md hover:font-bold z-10"
-      >
+      <div class="flex justify-center">
+        <button
+          @click="toggleBottomSheet()"
+          class="absolute top-4 bg-white text-black px-4 py-3 rounded-3xl shadow-lg hover:font-bold z-10 cursor-pointer border-[1px] border-gray-300"
+        >
+          <UiIcon icon="mdi-menu" />
+          목록 보기
+        </button>
         <HospitalListSheet
           v-if="isHospitalListSheetVisible"
           :hospitalList="hospitalListView"
           :style="bottomSheetStyle"
-          @close="isHospitalListSheetVisible = false"
+          @close="onCloseListSheet"
         />
-
-        <UiIcon icon="mdi-menu" class="text-gray-300" />
-        목록 보기
-      </button>
-      <div
-        id="map"
-        ref="mapContainer"
-        class="py-1 px-2 md:max-w-[460px] h-full w-[460px] sm:h-full"
-      ></div>
+        <div
+          id="map"
+          ref="mapContainer"
+          class="py-1 px-2 md:max-w-[460px] h-full w-[460px] sm:h-full flex z-0"
+        ></div>
+      </div>
+      <div class="relative justify-end">
+        <div
+          class="absolute right-10 md:right-5 transform -translate-y-1/2 mt-10 z-5"
+        >
+          <div
+            class="bg-white text-black px-4 py-3 rounded-3xl shadow-lg hover:font-bold w-28 cursor-pointer border-[1px] border-gray-300"
+          >
+            <NuxtLink to="/map/list"
+              >지역선택 <UiIcon icon="mdi-chevron-down"
+            /></NuxtLink>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- Bottom Sheet 컴포넌트 -->
     <MapBottomSheet
       v-if="isBottomSheetVisible"
       :hospital="selectedHospital"
       :style="bottomSheetStyle"
-      @close="isBottomSheetVisible = false"
+      @close="onCloseSheet"
     />
   </div>
 </template>
@@ -70,22 +83,50 @@ const localPositionY = ref(null);
 const map = ref(null);
 const markers = ref([]);
 const selectedHospital = ref(null);
-const isBottomSheetVisible = ref(false);
+const hospitalListView = ref([]);
 const isHospitalListSheetVisible = ref(false);
-
+const isBottomSheetVisible = ref(false);
 const mapContainer = ref(null);
-const bottomSheetStyle = computed(() => {
+
+const onCloseListSheet = (status) => {
+  isHospitalListSheetVisible.value = status !== undefined ? status : false;
+  // isHospitalListSheetVisible.value = !isHospitalListSheetVisible.value;
+};
+
+const onCloseSheet = () => {
+  isBottomSheetVisible.value = !isBottomSheetVisible.value;
+};
+
+const bottomSheetStyle = reactive({
+  width: "0px",
+  height: "0px",
+  top: "0px",
+  left: "0px",
+});
+
+// bottomSheetStyle을 업데이트하는 함수
+const updateBottomSheetStyle = () => {
   if (mapContainer.value) {
     const rect = mapContainer.value.getBoundingClientRect();
-    return {
-      width: `${rect.width}px`,
-      height: `${rect.height}px`,
-      top: `${rect.top}px`,
-      left: `${rect.left}px`,
-    };
+    bottomSheetStyle.width = `${rect.width}px`;
+    bottomSheetStyle.height = `${rect.height}px`;
+    bottomSheetStyle.top = `${rect.top}px`;
+    bottomSheetStyle.left = `${rect.left}px`;
   }
-  return {};
-});
+};
+
+// watch를 사용해 mapContainer 크기를 실시간으로 감시
+watch(
+  () => mapContainer.value?.getBoundingClientRect(),
+  (newRect) => {
+    if (newRect) {
+      bottomSheetStyle.width = `${newRect.width}px`;
+      bottomSheetStyle.height = `${newRect.height}px`;
+      bottomSheetStyle.top = `${newRect.top}px`;
+      bottomSheetStyle.left = `${newRect.left}px`;
+    }
+  }
+);
 
 const emit = defineEmits(["update"]);
 
@@ -93,10 +134,8 @@ const emit = defineEmits(["update"]);
  * 하단 sheet
  */
 const toggleBottomSheet = () => {
-  isHospitalListSheetVisible.value = true;
+  isHospitalListSheetVisible.value = !isHospitalListSheetVisible.value;
 };
-
-const hospitalListView = ref([]);
 
 /**
  * 병원 목록을 조회하고 마커를 업데이트하는 함수
@@ -109,7 +148,7 @@ const fetchHospital = async () => {
     const neLatLng = bounds.getNorthEast(); // 우상단 좌표
 
     // 좌표를 조건으로 병원 목록 조회
-    const { data } = await useHospital().fetchList({
+    const { data } = await useHospital().fetchMapList({
       conditions: [
         { key: "swLng", value: swLatLng.getLng() }, // 좌하단 경도
         { key: "swLat", value: swLatLng.getLat() }, // 좌하단 위도
@@ -232,6 +271,8 @@ const goBack = () => {
 };
 
 onMounted(() => {
+  window.addEventListener("resize", updateBottomSheetStyle);
+
   localPositionX.value = props.positionX;
   localPositionY.value = props.positionY;
 
@@ -245,5 +286,9 @@ onMounted(() => {
       fetchHospital(newX, newY);
     }
   });
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateBottomSheetStyle);
 });
 </script>

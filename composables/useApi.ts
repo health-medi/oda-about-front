@@ -1,6 +1,6 @@
-import axios, { AxiosRequestConfig, AxiosResponseHeaders } from 'axios';
-import { useToast } from '@/composables/useToast';
-import { useLoading } from '@/composables/useLoading';
+import { useLoading } from "@/composables/useLoading";
+import { useToast } from "@/composables/useToast";
+import axios, { AxiosRequestConfig, AxiosResponseHeaders } from "axios";
 
 /**
  * 요청 설정 인터페이스
@@ -26,7 +26,7 @@ const $get = async (url: string, config?: ReqeustConfig) => {
     config = {};
   }
   config.url = url;
-  config.method = 'GET';
+  config.method = "GET";
   return await call(config);
 };
 
@@ -41,7 +41,7 @@ const $post = async (url: string, config?: ReqeustConfig) => {
   }
   setAttachConfig(config);
   config.url = url;
-  config.method = 'POST';
+  config.method = "POST";
   return await call(config);
 };
 
@@ -56,7 +56,7 @@ const $put = async (url: string, config?: ReqeustConfig) => {
   }
   setAttachConfig(config);
   config.url = url;
-  config.method = 'PUT';
+  config.method = "PUT";
   return await call(config);
 };
 
@@ -70,7 +70,7 @@ const $delete = async (url: string, config?: ReqeustConfig) => {
     config = {};
   }
   config.url = url;
-  config.method = 'DELETE';
+  config.method = "DELETE";
   return await call(config);
 };
 
@@ -85,7 +85,7 @@ const setAttachConfig = (config: ReqeustConfig) => {
     });
     config.data = formData;
     config.headers = {
-      'Content-Type': 'multipart/form-data',
+      "Content-Type": "multipart/form-data",
     };
   }
 };
@@ -110,15 +110,15 @@ const call = async (config: ReqeustConfig) => {
     config = Object.assign(
       {},
       {
-        method: 'GET',
-        responseType: 'json',
+        method: "GET",
+        responseType: "json",
         timeout: 3000,
         withCredentials: true,
       },
-      config,
+      config
     );
-    if (!app.ssrContext && process.env.NODE_ENV !== 'production') {
-      console.info('API CALL', config);
+    if (!app.ssrContext && process.env.NODE_ENV !== "production") {
+      console.info("API CALL", config);
     }
     const response = await axios(config);
     if (!config.silence) {
@@ -127,45 +127,46 @@ const call = async (config: ReqeustConfig) => {
     }
     return response;
   } catch (error) {
-    if (!app.ssrContext && process.env.NODE_ENV !== 'production') {
-      console.error('ERROR: API CALL', error);
+    if (!app.ssrContext && process.env.NODE_ENV !== "production") {
+      console.error("ERROR: API CALL", error);
     }
     if (!config.silence) {
       const responseStatus = error.response?.status;
-      let msg = error.response?.data?.msg || ''; // 오류 메세지
+      let msg = error.response?.data?.msg || ""; // 오류 메세지
       if (!msg) {
         switch (responseStatus) {
           case 400:
-            msg = '잘못된 입력입니다.';
+            msg = "잘못된 입력입니다.";
             break;
           case 401:
           case 403:
-            msg = '로그인이 필요한 기능입니다.';
+            msg = "로그인이 필요한 기능입니다.";
             break;
           case 500:
-            msg = '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.';
+            msg = "오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.";
             break;
           default:
-            msg = '인터넷 연결이 불안정하거나 접속이 지연되고 있습니다. 잠시 후 다시 시도해 주세요.';
+            msg =
+              "인터넷 연결이 불안정하거나 접속이 지연되고 있습니다. 잠시 후 다시 시도해 주세요.";
             break;
         }
       }
       let title: string;
-      let type: string = 'error';
+      let type: string = "error";
       switch (responseStatus) {
         case 400:
-          title = '호출 실패';
+          title = "호출 실패";
           break;
         case 401:
         case 403:
-          title = '인증 정보 없음';
-          type = 'warning';
+          title = "인증 정보 없음";
+          type = "warning";
           break;
         case 500:
-          title = '서버 오류';
+          title = "서버 오류";
           break;
         default:
-          title = '서버 응답 없음';
+          title = "서버 응답 없음";
           break;
       }
       // 오류 메세지(msg) 출력
@@ -180,7 +181,7 @@ const call = async (config: ReqeustConfig) => {
         type,
       });
     }
-    return Promise.reject('cancel');
+    return Promise.reject("cancel");
   }
 };
 
@@ -233,7 +234,7 @@ const parseRequestConfig = <ReqeustConfig>(commonParam: CommonParam = {}) => {
   const conditions = {};
   commonParam.conditions?.forEach((conditionItem) => {
     const value = conditionItem.value;
-    if (value !== null && value !== undefined && value !== '') {
+    if (value !== null && value !== undefined && value !== "") {
       conditions[conditionItem.key] = value;
     }
   });
@@ -253,21 +254,24 @@ const parseRequestConfig = <ReqeustConfig>(commonParam: CommonParam = {}) => {
  * @param commonParam
  * @param headers
  */
-const setPagingResult = (commonParam: CommonParam = {}, headers: AxiosResponseHeaders) => {
+const setPagingResult = (
+  commonParam: CommonParam = {},
+  headers: AxiosResponseHeaders
+) => {
   if (headers) {
-    const page: string = headers['x-paging-page'];
+    const page: string = headers["x-paging-page"];
     if (!isNaN(+page)) {
       commonParam.page = Number(page);
     }
-    const size: string = headers['x-paging-size'];
+    const size: string = headers["x-paging-size"];
     if (!isNaN(+size)) {
       commonParam.size = Number(size);
     }
-    const sort: string = headers['x-paging-sort'];
+    const sort: string = headers["x-paging-sort"];
     if (sort) {
       commonParam.sort = sort;
     }
-    const total: string = headers['x-paging-total'];
+    const total: string = headers["x-paging-total"];
     if (!isNaN(+total)) {
       commonParam.total = Number(total);
     }
@@ -278,7 +282,7 @@ const setPagingResult = (commonParam: CommonParam = {}, headers: AxiosResponseHe
  * Querystring에서 공통 인자값 가져오기
  */
 const getCommonParamFromQuery = <CommonParam>(query: any = {}) => {
-  if (typeof query.q === 'string') {
+  if (typeof query.q === "string") {
     return JSON.parse(decodeURIComponent(window.atob(query.q)));
   }
   return getDefaultParam();
@@ -312,7 +316,10 @@ const getDefaultParam = <CommonParam>() => {
  * @param commonParam 공통 인자값
  * @param conditions 조건 목록
  */
-const setDefaultConditions = (commonParam: CommonParam, conditions: Array<SearchCondition>) => {
+const setDefaultConditions = (
+  commonParam: CommonParam,
+  conditions: Array<SearchCondition>
+) => {
   conditions?.forEach((defaultCondition) => {
     let isExist = false;
     commonParam.conditions.some((condition) => {
@@ -328,6 +335,18 @@ const setDefaultConditions = (commonParam: CommonParam, conditions: Array<Search
   });
 };
 
+/**
+ *  리스트 조회시  id 추가
+ * @param items 데이터 목록
+ * @param param 헤더 정보
+ */
+const setId = (items, param) => {
+  items.value.map((item, index) => {
+    item["id"] =
+      param.value.total - (param.value.page - 1) * param.value.size - index;
+  });
+};
+
 export const useApi = () => ({
   $get,
   $post,
@@ -339,4 +358,5 @@ export const useApi = () => ({
   setQueryFromCommonParam,
   getDefaultParam,
   setDefaultConditions,
+  setId,
 });

@@ -1,5 +1,8 @@
 <template>
-  <div class="fixed inset-0 flex items-end justify-center bottom-sheet-overlay">
+  <div
+    class="fixed inset-0 flex items-end justify-center bg-black bg-opacity-50 z-10"
+    @click="$emit('close')"
+  >
     <div class="w-full max-w-md p-4 bg-white rounded-t-2xl shadow-lg">
       <h3 class="text-lg font-semibold text-center mb-4">상담 가능 시간</h3>
       <div class="grid grid-cols-7 text-center text-sm">
@@ -59,12 +62,3 @@ const formatTime = (time) => {
 
 const emit = defineEmits(["close"]);
 </script>
-<style scoped>
-.bottom-sheet-overlay {
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-  display: flex;
-  align-items: flex-end;
-}
-</style>

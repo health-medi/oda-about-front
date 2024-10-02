@@ -1,10 +1,10 @@
 <template>
   <div>
     <ClientOnly>
-      <!-- Router View -->
-      <NuxtPage :key="$route.fullPath" v-show="isInit" />
-      <!-- Loading -->
-      <UiOverlay v-show="!isInit">
+      <div v-if="isInit">
+        <NuxtPage :key="$route.fullPath" />
+      </div>
+      <UiOverlay v-else>
         <UiIcon icon="loading" size="100" class="stroke-gray-500" />
         <h1 class="text-gray-500">화면을 준비 중입니다...</h1>
       </UiOverlay>
