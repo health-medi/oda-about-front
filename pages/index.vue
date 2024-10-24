@@ -1,7 +1,5 @@
 <template>
-  <div class="max-w-[1920px] relative items-center overflow-x-hidden bg-white">
-    <LayoutNavigationBar />
+  <div>
     <MainDescription id="description" />
-    <Footer />
   </div>
 </template>

@@ -1,6 +1,5 @@
 <template>
   <div class="bg-white">
-    <LayoutNavigationBar />
     <section class="relative">
       <div class="absolute mt-[40%] md:mt-24 z-10 w-full text-center">
         <h1 class="text-xl md:text-2xl font-medium">오늘의 다이어트</h1>
@@ -193,6 +192,6 @@
         />
       </article>
     </section>
-    <Footer />
+    <LayoutFooter />
   </div>
 </template>

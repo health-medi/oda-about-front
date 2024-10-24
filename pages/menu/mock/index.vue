@@ -19,15 +19,13 @@
           alt="오다"
         />
       </div>
-      <!-- FIXME 임시 -->
       <img
         class="relative max-w-[200%] right-1/2 md:right-auto md:max-w-[1920px] md:left-1/2 md:translate-x-[-50%]"
-        src="@/assets/images/main/box1bg2.png"
+        src="@/assets/images/main/box1bg.png"
         alt="배경"
       />
     </section>
-    <!-- FIXME 임시 -->
-    <section class="text-center text-zinc-900 py-[100px] md:py-[200px] hidden">
+    <section class="text-center text-zinc-900 py-[100px] md:py-[200px]">
       <div>
         <h1>
           <span

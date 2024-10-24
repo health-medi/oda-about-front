@@ -1,6 +1,5 @@
 <template>
   <div class="bg-white">
-    <LayoutNavigationBar />
     <section class="relative">
       <div
         class="absolute mt-[40%] md:mt-24 z-10 w-full text-center text-white"
@@ -220,6 +219,6 @@
         </ul>
       </div>
     </section>
-    <Footer />
+    <LayoutFooter />
   </div>
 </template>

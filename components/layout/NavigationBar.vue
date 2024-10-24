@@ -53,7 +53,13 @@
         class="block md:inline text-3xl md:text-base mt-[150px] md:mt-0 md:mr-10 text-[#2E2E2E] transition duration-300 ease-in-out hover:font-bold"
         href="#"
       >
-        <NuxtLink to="/menu/sub-1">프로그램 비용안내</NuxtLink>
+        <!-- FIXME 임시 -->
+        <NuxtLink to="/menu/sub-1" :class="visibleLink ? '' : 'hidden'"
+          >프로그램 비용안내</NuxtLink
+        >
+        <NuxtLink to="/menu/mock" :class="visibleLink ? 'hidden' : ''"
+          >다이어트 프로그램</NuxtLink
+        >
       </a>
       <a
         class="block md:inline text-3xl md:text-base mt-12 md:mt-0 md:mr-10 text-[#2E2E2E] transition duration-300 ease-in-out hover:font-bold"
@@ -61,12 +67,13 @@
       >
         <NuxtLink to="/menu/sub-2">진료 프로세스</NuxtLink>
       </a>
-      <a
+      <!-- FIXME 임시 -->
+      <!-- <a
         class="block md:inline text-3xl md:text-base mt-12 md:mt-0 text-[#2E2E2E] transition duration-300 ease-in-out hover:font-bold"
         href="#"
       >
         <NuxtLink to="/map">지점 안내</NuxtLink>
-      </a>
+      </a> -->
     </div>
   </nav>
 </template>
@@ -104,4 +111,22 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
+
+// FIXME 임시
+const visibleLink = ref(false);
+
+const router = useNuxtApp().$router;
+const fetch = () => {
+  if (router.currentRoute._value.path == "/") {
+    visibleLink.value = false;
+  } else {
+    visibleLink.value = true;
+  }
+};
+fetch();
+
+watch(
+  () => router.currentRoute.value.path,
+  () => fetch()
+);
 </script>

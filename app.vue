@@ -2,7 +2,9 @@
   <div>
     <ClientOnly>
       <div v-if="isInit">
-        <NuxtPage :key="$route.fullPath" />
+        <NuxtLayout>
+          <NuxtPage :key="$route.fullPath" />
+        </NuxtLayout>
       </div>
       <UiOverlay v-else>
         <UiIcon icon="loading" size="100" class="stroke-gray-500" />
