@@ -70,7 +70,7 @@
         alt="배경"
       />
     </section>
-    <section class="bg-zinc-800 py-16 md:py-44">
+    <section class="bg-zinc-800 py-16 md:py-44 hidden">
       <div
         class="md:flex justify-between text-center *:flex-1 w-full md:w-[1040px] mx-auto gap-4"
       >
@@ -136,7 +136,7 @@
         </ul>
       </div>
     </section>
-    <section class="text-center py-20 md:py-40">
+    <section class="text-center py-20 md:py-40 hidden">
       <h1
         class="text-zinc-900 font-bold text-3xl md:text-6xl mb-16 md:mb-32 md:leading-tight"
       >
@@ -222,7 +222,7 @@
         alt="배경"
       />
     </section>
-    <section class="relative">
+    <section class="relative hidden">
       <div class="absolute text-center top-14 md:top-52 z-10 w-full">
         <h2 class="font-semibold text-2xl md:text-5xl">오늘의 다이어트는</h2>
         <h1
