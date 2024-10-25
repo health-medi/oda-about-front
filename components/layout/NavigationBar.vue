@@ -54,12 +54,13 @@
         href="#"
       >
         <!-- FIXME 임시 -->
-        <NuxtLink to="/menu/sub-1" :class="visibleLink ? '' : 'hidden'"
+        <!-- <NuxtLink to="/menu/sub-1" :class="visibleLink ? '' : 'hidden'"
           >다이어트 프로그램</NuxtLink
         >
         <NuxtLink to="/menu/mock" :class="visibleLink ? 'hidden' : ''"
           >다이어트 프로그램</NuxtLink
-        >
+        > -->
+        <NuxtLink to="/menu/mock">다이어트 프로그램</NuxtLink>
       </a>
       <a
         class="block md:inline text-3xl md:text-base mt-12 md:mt-0 md:mr-10 text-[#2E2E2E] transition duration-300 ease-in-out hover:font-bold"
@@ -113,20 +114,20 @@ onUnmounted(() => {
 });
 
 // FIXME 임시
-const visibleLink = ref(false);
+// const visibleLink = ref(false);
 
-const router = useNuxtApp().$router;
-const fetch = () => {
-  if (router.currentRoute._value.path == "/") {
-    visibleLink.value = false;
-  } else {
-    visibleLink.value = true;
-  }
-};
-fetch();
+// const router = useNuxtApp().$router;
+// const fetch = () => {
+//   if (router.currentRoute._value.path == "/") {
+//     visibleLink.value = false;
+//   } else {
+//     visibleLink.value = true;
+//   }
+// };
+// fetch();
 
-watch(
-  () => router.currentRoute.value.path,
-  () => fetch()
-);
+// watch(
+//   () => router.currentRoute.value.path,
+//   () => fetch()
+// );
 </script>

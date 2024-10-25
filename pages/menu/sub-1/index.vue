@@ -192,6 +192,5 @@
         />
       </article>
     </section>
-    <LayoutFooter />
   </div>
 </template>

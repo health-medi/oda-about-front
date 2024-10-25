@@ -219,6 +219,5 @@
         </ul>
       </div>
     </section>
-    <LayoutFooter />
   </div>
 </template>
