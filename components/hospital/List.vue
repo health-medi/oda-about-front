@@ -95,6 +95,7 @@
 <script setup>
 import _ from "lodash";
 import { limitString } from "@/plugins/utils/string.utils";
+import noProfileImg from "@/assets/images/map/no-profile.png";
 
 const props = defineProps({
   /**
@@ -188,7 +189,11 @@ const medicalStaffName = (item) => {
 
 // 의사 이미지 URL을 반환하는 함수
 const getDoctorImageUrl = (item) => {
-  return `/api/attach/view/${item.medicalStaffList?.[0]?.attachBag?.image?.[0]?.attachId}`;
+  if (item && item.medicalStaffList) {
+    return `/api/attach/view/${item.medicalStaffList?.[0]?.attachBag?.image?.[0]?.attachId}`;
+  } else {
+    return noProfileImg;
+  }
 };
 
 const goHospital = (item) => {
