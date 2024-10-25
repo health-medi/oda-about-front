@@ -55,7 +55,7 @@
       >
         <!-- FIXME 임시 -->
         <NuxtLink to="/menu/sub-1" :class="visibleLink ? '' : 'hidden'"
-          >프로그램 비용안내</NuxtLink
+          >다이어트 프로그램</NuxtLink
         >
         <NuxtLink to="/menu/mock" :class="visibleLink ? 'hidden' : ''"
           >다이어트 프로그램</NuxtLink
