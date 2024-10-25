@@ -1,6 +1,8 @@
 <template>
   <div class="grid grid-cols-3 gap-2 w-[600px]">
-    <h3 class="h-12 leading-[48px]">오다 한의원</h3>
+    <h3 class="h-12 leading-[48px]">
+      <NuxtLink to="/">오다 한의원</NuxtLink>
+    </h3>
     <NuxtLink
       active-class="terms-menu-style"
       to="/terms/privacy"
@@ -17,4 +19,3 @@
     </NuxtLink>
   </div>
 </template>
-<script setup></script>
