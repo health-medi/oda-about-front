@@ -27,7 +27,7 @@
         <NuxtLink :to="`/hospital/${item.hsptSeq}`">
           <div class="border rounded-xl p-3 md:p-5 bg-white">
             <div class="flex justify-between">
-              <div v-if="hasMedicalStaffImage(item)">
+              <div>
                 <img
                   :src="getDoctorImageUrl(item)"
                   alt="의사 사진"
@@ -189,11 +189,9 @@ const medicalStaffName = (item) => {
 
 // 의사 이미지 URL을 반환하는 함수
 const getDoctorImageUrl = (item) => {
-  if (item && item.medicalStaffList) {
-    return `/api/attach/view/${item.medicalStaffList?.[0]?.attachBag?.image?.[0]?.attachId}`;
-  } else {
-    return noProfileImg;
-  }
+  return item.medicalStaffList?.[0]?.attachBag?.image?.[0]?.attachId
+    ? `/api/attach/view/${item.medicalStaffList[0].attachBag.image[0].attachId}`
+    : noProfileImg;
 };
 
 const goHospital = (item) => {

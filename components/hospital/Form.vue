@@ -40,7 +40,7 @@
       </div>
       <div class="flex items-center mb-5" v-if="localHospital.medicalStaffList">
         <img
-          :src="`/api/attach/view/${localHospital.medicalStaffList?.[0]?.attachBag?.image?.[0]?.attachId}`"
+          :src="getProfileImageSrc(localHospital)"
           alt="의사 사진"
           class="w-16 h-16 rounded-full object-cover border mr-4"
         />
@@ -121,6 +121,7 @@
 
 <script setup>
 import _ from "lodash";
+import defaultImage from "@/assets/images/map/no-profile.png";
 
 const props = defineProps({
   /**
@@ -243,6 +244,15 @@ const consultationStatus = computed(() => {
     message: "상담 불가능 · 오늘은 상담 시간이 없습니다.",
   };
 });
+
+/**
+ * 의사사진
+ */
+const getProfileImageSrc = (localHospital) => {
+  return localHospital.medicalStaffList?.[0]?.attachBag?.image?.[0]?.attachId
+    ? `/api/attach/view/${localHospital.medicalStaffList[0].attachBag.image[0].attachId}`
+    : defaultImage;
+};
 
 // 시간 포맷팅 함수
 const formatTime = (time) => {
