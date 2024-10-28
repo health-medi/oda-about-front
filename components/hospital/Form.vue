@@ -249,7 +249,9 @@ const consultationStatus = computed(() => {
  * 의사사진
  */
 const getProfileImageSrc = (localHospital) => {
-  return `/api/attach/view/${localHospital.medicalStaffList[0].attachBag.image[0].attachId}`;
+  return localHospital.medicalStaffList?.[0]?.attachBag?.image?.[0]?.attachId
+    ? `/api/attach/view/${localHospital.medicalStaffList[0].attachBag.image[0].attachId}`
+    : defaultImage;
 };
 
 // 시간 포맷팅 함수
