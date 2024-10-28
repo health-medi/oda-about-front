@@ -38,22 +38,27 @@
           />
         </a>
       </div>
-      <div class="flex items-center mb-5" v-if="localHospital.medicalStaffList">
-        <img
-          :src="getProfileImageSrc(localHospital)"
-          alt="의사 사진"
-          class="w-16 h-16 rounded-full object-cover border mr-4"
-        />
-        <div>
-          <span
-            v-if="localHospital.medicalStaffList?.[0]?.majorSubject"
-            class="bg-[#fdd3e1] text-[#FF4E8B] font-bold rounded-md px-1 py-1 inline-block mt-1 text-xs"
-          >
-            {{ localHospital.medicalStaffList?.[0]?.majorSubject }}
-          </span>
-          <h3 class="text-md font-bold text-gray-500 mt-1">
-            {{ localHospital.medicalStaffList?.[0]?.medicalStaffNm }}
-          </h3>
+      <div v-if="isExistStaff(localHospital)">
+        <div
+          class="flex items-center mb-5"
+          v-if="localHospital.medicalStaffList"
+        >
+          <img
+            :src="getProfileImageSrc(localHospital)"
+            alt="의사 사진"
+            class="w-16 h-16 rounded-full object-cover border mr-4"
+          />
+          <div>
+            <span
+              v-if="localHospital.medicalStaffList?.[0]?.majorSubject"
+              class="bg-[#fdd3e1] text-[#FF4E8B] font-bold rounded-md px-1 py-1 inline-block mt-1 text-xs"
+            >
+              {{ localHospital.medicalStaffList?.[0]?.majorSubject }}
+            </span>
+            <h3 class="text-md font-bold text-gray-500 mt-1">
+              {{ localHospital.medicalStaffList?.[0]?.medicalStaffNm }}
+            </h3>
+          </div>
         </div>
       </div>
       <div
@@ -249,9 +254,16 @@ const consultationStatus = computed(() => {
  * 의사사진
  */
 const getProfileImageSrc = (localHospital) => {
-  return localHospital.medicalStaffList?.[0]?.attachBag?.image?.[0]?.attachId
-    ? `/api/attach/view/${localHospital.medicalStaffList[0].attachBag.image[0].attachId}`
-    : defaultImage;
+  let image = `/api/attach/view/${localHospital?.medicalStaffList?.[0]?.attachBag?.image?.[0]?.attachId}`;
+  if (image.includes("undefined")) {
+    image = defaultImage;
+  }
+  return image;
+};
+
+// 의사가 있는지 확인하는 함수
+const isExistStaff = (item) => {
+  return item && item.medicalStaffList.length > 0 ? true : false;
 };
 
 // 시간 포맷팅 함수
