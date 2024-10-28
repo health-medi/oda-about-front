@@ -10,7 +10,8 @@
       <!-- 로고 -->
       <div>
         <a href="/" class="z-10">
-          <img
+          <!-- FIXME -->
+          <!-- <img
             class="hidden md:block w-[206px]"
             src="@/assets/images/main/nav_ci.png"
             alt="ODA:아름다운 변화가 오다"
@@ -19,6 +20,16 @@
             class="block md:hidden w-[54.5px]"
             src="@/assets/images/main/nav_ci2.png"
             alt="ODA"
+          /> -->
+          <img
+            class="hidden md:block w-[137px]"
+            src="@/assets/images/main/nav2_ci.png"
+            alt="오다한의원"
+          />
+          <img
+            class="block md:hidden w-[68.5px]"
+            src="@/assets/images/main/nav2_ci.png"
+            alt="오다한의원"
           />
         </a>
       </div>
