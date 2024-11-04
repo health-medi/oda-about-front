@@ -34,7 +34,7 @@
                   class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover border"
                 />
               </div>
-              <div class="items-start md:mr-4">
+              <div class="items-start w-[245px]">
                 <h2 class="text-lg md:text-xl font-bold text-left">
                   {{ item.hsptNm }}
                 </h2>
@@ -63,7 +63,7 @@
                     class="stroke-gray-500 mr-2"
                   />
                   <span class="text-sm text-left mt-1">
-                    {{ limitString(item.hsptAddr, 9) }}
+                    {{ item.hsptAddr }}
                   </span>
                 </div>
                 <div class="flex items-center">
@@ -78,7 +78,7 @@
                   />
                 </div>
               </div>
-              <div class="flex items-center md:ml-20">
+              <div class="flex items-center">
                 <div
                   class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-white"
                 >
