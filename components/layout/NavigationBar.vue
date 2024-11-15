@@ -11,7 +11,7 @@
       <div>
         <a href="/" class="z-10">
           <!-- FIXME -->
-          <!-- <img
+          <img
             class="hidden md:block w-[206px]"
             src="@/assets/images/main/nav_ci.png"
             alt="ODA:아름다운 변화가 오다"
@@ -20,16 +20,6 @@
             class="block md:hidden w-[54.5px]"
             src="@/assets/images/main/nav_ci2.png"
             alt="ODA"
-          /> -->
-          <img
-            class="hidden md:block w-[137px]"
-            src="@/assets/images/main/nav2_ci.png"
-            alt="오다한의원"
-          />
-          <img
-            class="block md:hidden w-[68.5px]"
-            src="@/assets/images/main/nav2_ci.png"
-            alt="오다한의원"
           />
         </a>
       </div>
@@ -64,14 +54,12 @@
         class="block md:inline text-3xl md:text-base mt-[150px] md:mt-0 md:mr-10 text-[#2E2E2E] transition duration-300 ease-in-out hover:font-bold"
         href="#"
       >
-        <!-- FIXME 임시 -->
-        <!-- <NuxtLink to="/menu/sub-1" :class="visibleLink ? '' : 'hidden'"
+        <NuxtLink to="/menu/sub-1" :class="visibleLink ? '' : 'hidden'"
           >다이어트 프로그램</NuxtLink
         >
         <NuxtLink to="/menu/mock" :class="visibleLink ? 'hidden' : ''"
           >다이어트 프로그램</NuxtLink
-        > -->
-        <NuxtLink to="/menu/mock">다이어트 프로그램</NuxtLink>
+        >
       </a>
       <a
         class="block md:inline text-3xl md:text-base mt-12 md:mt-0 md:mr-10 text-[#2E2E2E] transition duration-300 ease-in-out hover:font-bold"
@@ -79,13 +67,12 @@
       >
         <NuxtLink to="/menu/sub-2">진료 프로세스</NuxtLink>
       </a>
-      <!-- FIXME 임시 -->
-      <!-- <a
+      <a
         class="block md:inline text-3xl md:text-base mt-12 md:mt-0 text-[#2E2E2E] transition duration-300 ease-in-out hover:font-bold"
         href="#"
       >
         <NuxtLink to="/map">지점 안내</NuxtLink>
-      </a> -->
+      </a>
     </div>
   </nav>
 </template>
@@ -125,20 +112,20 @@ onUnmounted(() => {
 });
 
 // FIXME 임시
-// const visibleLink = ref(false);
+const visibleLink = ref(false);
 
-// const router = useNuxtApp().$router;
-// const fetch = () => {
-//   if (router.currentRoute._value.path == "/") {
-//     visibleLink.value = false;
-//   } else {
-//     visibleLink.value = true;
-//   }
-// };
-// fetch();
+const router = useNuxtApp().$router;
+const fetch = () => {
+  if (router.currentRoute._value.path == "/") {
+    visibleLink.value = false;
+  } else {
+    visibleLink.value = true;
+  }
+};
+fetch();
 
-// watch(
-//   () => router.currentRoute.value.path,
-//   () => fetch()
-// );
+watch(
+  () => router.currentRoute.value.path,
+  () => fetch()
+);
 </script>

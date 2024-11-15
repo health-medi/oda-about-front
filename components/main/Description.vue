@@ -22,12 +22,12 @@
       <!-- FIXME 임시 -->
       <img
         class="relative max-w-[200%] right-1/2 md:right-auto md:max-w-[1920px] md:left-1/2 md:translate-x-[-50%]"
-        src="@/assets/images/main/box1bg2.png"
+        src="@/assets/images/main/box1bg.png"
         alt="배경"
       />
     </section>
     <!-- FIXME 임시 -->
-    <section class="text-center text-zinc-900 py-[100px] md:py-[200px] hidden">
+    <section class="text-center text-zinc-900 py-[100px] md:py-[200px]">
       <div>
         <h1>
           <span
@@ -70,7 +70,7 @@
         alt="배경"
       />
     </section>
-    <section class="bg-zinc-800 py-16 md:py-44 hidden">
+    <section class="bg-zinc-800 py-16 md:py-44">
       <div
         class="md:flex justify-between text-center *:flex-1 w-full md:w-[1040px] mx-auto gap-4"
       >
@@ -136,7 +136,7 @@
         </ul>
       </div>
     </section>
-    <section class="text-center py-20 md:py-40 hidden">
+    <section class="text-center py-20 md:py-40">
       <h1
         class="text-zinc-900 font-bold text-3xl md:text-6xl mb-16 md:mb-32 md:leading-tight"
       >
@@ -222,7 +222,7 @@
         alt="배경"
       />
     </section>
-    <section class="relative hidden">
+    <section class="relative">
       <div class="absolute text-center top-14 md:top-52 z-10 w-full">
         <h2 class="font-semibold text-2xl md:text-5xl">오늘의 다이어트는</h2>
         <h1

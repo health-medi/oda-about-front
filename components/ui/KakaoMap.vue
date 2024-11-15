@@ -29,7 +29,7 @@
         <div
           id="map"
           ref="mapContainer"
-          class="py-1 px-2 md:max-w-[460px] h-full w-[460px] sm:h-full flex z-0"
+          class="relative py-1 px-2 md:max-w-[460px] h-full w-[460px] sm:h-full flex z-0 min-w-[300px] min-h-[300px] sm:min-w-[100%] sm:min-h-[100%] overflow-hidden"
         ></div>
       </div>
       <div class="relative justify-end">
@@ -271,6 +271,7 @@ const goBack = () => {
 };
 
 onMounted(() => {
+  document.body.classList.add("overflow-hidden");
   window.addEventListener("resize", updateBottomSheetStyle);
 
   localPositionX.value = props.positionX;
@@ -289,6 +290,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
+  document.body.classList.add("overflow-hidden");
   window.removeEventListener("resize", updateBottomSheetStyle);
 });
 </script>
