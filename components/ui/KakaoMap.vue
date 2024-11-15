@@ -271,7 +271,6 @@ const goBack = () => {
 };
 
 onMounted(() => {
-  document.body.classList.add("overflow-hidden");
   window.addEventListener("resize", updateBottomSheetStyle);
 
   localPositionX.value = props.positionX;
@@ -290,7 +289,6 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  document.body.classList.add("overflow-hidden");
   window.removeEventListener("resize", updateBottomSheetStyle);
 });
 </script>
