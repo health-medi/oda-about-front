@@ -1,52 +1,46 @@
 <template>
-  <div class="relative h-screen">
-    <div class="flex justify-center h-full">
-      <div class="relative justify-start">
-        <div
-          class="absolute left-14 md:left-5 transform -translate-y-1/2 mt-10 z-10"
-        >
-          <div
-            class="w-12 h-12 flex items-center justify-center rounded-full shadow-lg bg-white text-black cursor-pointer border-[1px] border-gray-300"
-          >
-            <UiIcon icon="mdi-chevron-left" size="35" @click="goBack()" />
-          </div>
-        </div>
+  <div class="flex justify-center h-full relative">
+    <!-- 지도 영역 -->
+    <div
+      id="map"
+      ref="mapContainer"
+      class="relative w-[420px] md:max-w-[420px] h-screen flex z-0"
+    >
+      <!-- goBack 버튼 (좌측) -->
+      <div
+        class="absolute left-3 top-4 w-12 h-12 flex items-center justify-center rounded-full shadow-lg bg-white text-black cursor-pointer border-[1px] border-gray-300 z-10"
+      >
+        <UiIcon icon="mdi-chevron-left" size="35" @click="goBack()" />
       </div>
-      <div class="flex justify-center">
+
+      <!-- 목록 보기 버튼 (중앙) -->
+      <div class="absolute top-4 left-1/2 transform -translate-x-1/2 z-10">
         <button
           @click="toggleBottomSheet()"
-          class="absolute top-4 bg-white text-black px-4 py-3 rounded-3xl shadow-lg hover:font-bold z-10 cursor-pointer border-[1px] border-gray-300"
+          class="bg-white text-black px-4 py-3 rounded-3xl shadow-lg hover:font-bold cursor-pointer border-[1px] border-gray-300"
         >
           <UiIcon icon="mdi-menu" />
           목록 보기
         </button>
-        <HospitalListSheet
-          v-if="isHospitalListSheetVisible"
-          :hospitalList="hospitalListView"
-          :style="bottomSheetStyle"
-          @close="onCloseListSheet"
-        />
-        <div
-          id="map"
-          ref="mapContainer"
-          class="relative py-1 px-2 md:max-w-[460px] h-full w-[460px] sm:h-full flex z-0 min-w-[300px] min-h-[300px] sm:min-w-[100%] sm:min-h-[100%] overflow-hidden"
-        ></div>
       </div>
-      <div class="relative justify-end">
-        <div
-          class="absolute right-10 md:right-5 transform -translate-y-1/2 mt-10 z-5"
-        >
-          <div
-            class="bg-white text-black px-4 py-3 rounded-3xl shadow-lg hover:font-bold w-28 cursor-pointer border-[1px] border-gray-300"
-          >
-            <NuxtLink to="/map/list"
-              >지역선택 <UiIcon icon="mdi-chevron-down"
-            /></NuxtLink>
-          </div>
-        </div>
+
+      <!-- 지역 선택 버튼 (우측) -->
+      <div
+        class="absolute right-3 top-4 bg-white text-black px-4 py-3 rounded-3xl shadow-lg hover:font-bold cursor-pointer border-[1px] border-gray-300 z-10"
+      >
+        <NuxtLink to="/map/list">
+          지역 선택 <UiIcon icon="mdi-chevron-down" />
+        </NuxtLink>
       </div>
     </div>
-    <!-- Bottom Sheet 컴포넌트 -->
+    <!-- 병원 목록 바텀시트 -->
+    <HospitalListSheet
+      v-if="isHospitalListSheetVisible"
+      :hospitalList="hospitalListView"
+      :style="bottomSheetStyle"
+      @close="onCloseListSheet"
+    />
+    <!-- 맵 하단 병원 정보 -->
     <MapBottomSheet
       v-if="isBottomSheetVisible"
       :hospital="selectedHospital"
