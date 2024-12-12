@@ -102,7 +102,7 @@
             <ol
               class="rounded-full bg-[#FF3858] text-white font-bold text-xl text-center leading-[55px] w-14 h-14"
             >
-              25%
+              30%
             </ol>
             <ol class="text-right tracking-[-1px] flex-auto">
               <h1 class="text-sm text-[#999999] line-through">
@@ -137,7 +137,7 @@
             <ol
               class="rounded-full bg-[#FF3858] text-white font-bold text-xl text-center leading-[55px] w-14 h-14"
             >
-              25%
+              35%
             </ol>
             <ol class="text-right tracking-[-1px] flex-auto">
               <h1 class="text-sm text-[#999999] line-through">
