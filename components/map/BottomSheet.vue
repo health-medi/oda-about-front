@@ -94,10 +94,10 @@ const props = defineProps({
 const hospitalName = computed(() => props.hospital.hsptNm);
 
 // 의사 이미지가 있는지 여부
-const hasMedicalStaffImage = computed(
-  () =>
-    props.hospital?.medicalStaffList[0]?.attachBag?.image[0]?.attachId != null
-);
+const hasMedicalStaffImage = computed(() => {
+  return !!props.hospital?.medicalStaffList?.[0]?.attachBag?.image?.[0]
+    ?.attachId;
+});
 
 // 의사 정보
 const majorSubject = computed(
