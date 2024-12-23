@@ -2,7 +2,7 @@
   <div>
     <section>
       <div
-        class="absolute left-4 md:left-44 xl:left-[360px] top-24 md:top-48 z-10"
+        class="absolute left-4 md:left-40 xl:left-[360px] top-24 md:top-[20rem] z-10"
       >
         <h2 class="md:text-5xl mb-5 tracking-tight font-bold text-2xl">
           오늘의 다이어트
@@ -370,7 +370,7 @@
         </div>
         <img
           class="w-[255px] md:w-auto inline mt-12 md:mt-0"
-          src="@/assets/images/main/box702.png"
+          src="@/assets/images/main/box_702.png"
           alt="오다 어플"
         />
       </article>
@@ -426,6 +426,7 @@ const hospitalNmList = [
   {
     key: "kokia",
     value: "코키아한방병원",
+    idx: "135",
   },
 ];
 
@@ -561,7 +562,7 @@ onMounted(() => {
     if (el.key == hospitalNm) {
       sHospitalNm.value = el.value;
       // 임시 (코키아)
-      url.value = `/hospital/135`;
+      url.value = `/hospital/${el.idx}`;
     }
   });
   if (sHospitalNm.value == null) {

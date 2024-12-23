@@ -187,10 +187,17 @@
         </div>
         <img
           class="w-[240px] md:w-auto mx-auto mt-5 md:m-0"
-          src="@/assets/images/main/sub103.png"
+          :src="imgSrc"
           alt="오다앱 프리미엄 존"
         />
       </article>
     </section>
   </div>
 </template>
+<script setup>
+import img1 from "@/assets/images/main/sub103.png";
+import img2 from "@/assets/images/main/sub_103.png";
+const item = sessionStorage.getItem("hospitalNm");
+
+const imgSrc = computed(() => (item != null ? img2 : img1));
+</script>
