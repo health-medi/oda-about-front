@@ -406,6 +406,7 @@
 </template>
 <script setup>
 const route = useRoute();
+const router = useRouter();
 const hospitalNm = route.params.hospitalNm; // @ 뒤의 hospitalNm 추출
 const sHospitalNm = ref();
 
@@ -424,7 +425,12 @@ onMounted(() => {
     }
   });
   if (sHospitalNm.value == null) {
-    alert("없음");
+    useToast().open({
+      title: "존재하지 않는 페이지",
+      msg: "페당 페이지는 없는 페이지 입니다.",
+      type: "warning",
+    });
+    router.push("/");
   }
 });
 </script>
