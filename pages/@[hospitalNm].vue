@@ -398,17 +398,21 @@
           class="inline-block rounded-full bg-[#FF6079] py-2 md:py-4 px-10 md:px-20 mt-5 md:mt-10 text-base md:text-2xl font-bold hover:bg-[#ff3e5c] transition-all"
           href="#"
         >
-          <NuxtLink to="/map">상담 신청 하기</NuxtLink>
+          <NuxtLink :to="url">상담 신청 하기</NuxtLink>
         </a>
       </div>
     </section>
   </div>
 </template>
 <script setup>
+import { gsap } from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 const route = useRoute();
 const router = useRouter();
 const hospitalNm = route.params.hospitalNm; // @ 뒤의 hospitalNm 추출
 const sHospitalNm = ref();
+// URL
+const url = ref();
 
 // 병원명 추가시 추가등록
 const hospitalNmList = [
@@ -418,10 +422,139 @@ const hospitalNmList = [
   },
 ];
 
+gsap.registerPlugin(ScrollTrigger);
+
+// 숫자 애니메이션에 사용될 counter 데이터
+const counters = ref([
+  { start: 0, end: 23357 },
+  { start: 0, end: 278 },
+  { start: 0, end: -13 },
+  { start: 0, end: 2 },
+  { start: 0, end: 16 },
+  { start: 0, end: 1 },
+  // 추가적인 counter 데이터를 여기에 추가
+]);
+
+// 배너 애니메이션에 사용될 banner 데이터
+const banners = ref([
+  { id: 1, width: 300 }, // 예시 데이터, 실제로는 배너 콘텐츠로 대체
+  { id: 2, width: 300 },
+  { id: 3, width: 300 },
+  { id: 4, width: 300 },
+]);
+
+const bannerLeft = ref(0);
+const scrollPosition = ref(0);
+
+const first = ref(1);
+let last;
+let imgCnt = banners.value.length;
+
+// Counter 업데이트 함수
+const updateCounter = (el, start, end, duration, addCommas) => {
+  let startTime;
+  const animateCounter = (timestamp) => {
+    if (!startTime) startTime = timestamp;
+    const progress = (timestamp - startTime) / duration;
+    const current = Math.round(start + progress * (end - start));
+    const formattedNumber = addCommas ? current.toLocaleString() : current;
+    el.textContent = formattedNumber;
+
+    if (progress < 1) {
+      requestAnimationFrame(animateCounter);
+    } else {
+      el.textContent = addCommas ? end.toLocaleString() : end;
+    }
+  };
+  requestAnimationFrame(animateCounter);
+};
+
+// Scroll 이벤트 핸들러
+const handleScroll = () => {
+  scrollPosition.value = window.scrollY;
+};
+
+// 배너 애니메이션 초기화
+const initBannerAnimation = () => {
+  const $banners = document.querySelectorAll(".banner_wraper .banner");
+  let bannerWidth = $banners[0].offsetWidth; // 배너 너비
+  let totalWidth = bannerWidth * $banners.length;
+
+  // 배너 초기 위치 설정
+  gsap.set($banners, { x: (index) => index * bannerWidth });
+
+  // 애니메이션 설정
+  gsap.to($banners, {
+    x: `-=${totalWidth}`,
+    duration: 20, // 애니메이션 지속 시간
+    repeat: -1, // 무한 반복
+    ease: "linear",
+  });
+};
+
+// GSAP을 이용한 애니메이션 설정
+const initGsapAnimations = () => {
+  // fade-up 애니메이션
+  gsap.from(".fade-up", {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    scrollTrigger: {
+      trigger: ".fade-up",
+      start: "top 80%",
+      end: "bottom top",
+      scrub: true,
+    },
+  });
+
+  // zoom-in 애니메이션
+  gsap.from(".zoom-in", {
+    scale: 0.5,
+    opacity: 0,
+    duration: 1,
+    scrollTrigger: {
+      trigger: ".zoom-in",
+      start: "top 80%",
+      end: "bottom top",
+      scrub: true,
+    },
+  });
+};
+
+// Watch 함수
+watch(scrollPosition, (newValue) => {
+  const winHeight = window.innerHeight;
+
+  counters.value.forEach((counter, index) => {
+    const $el = document.querySelectorAll(".counter")[index];
+    const rect = $el.getBoundingClientRect();
+    const contentHeight = rect.bottom - rect.top;
+    const exposurePercentage = 100;
+
+    if (
+      rect.top <= winHeight - (contentHeight * exposurePercentage) / 100 &&
+      rect.bottom >= (contentHeight * exposurePercentage) / 100 &&
+      !$el.dataset.scrolled
+    ) {
+      const start = parseInt(counter.start);
+      const end = parseInt(counter.end);
+      updateCounter($el, start, end, 1100, true);
+      $el.dataset.scrolled = true;
+    }
+  });
+});
+// Vue에서 onMounted() 또는 다른 라이프사이클 훅에서 이 함수를 호출하여 초기화합니다.
+// 컴포넌트가 마운트된 후 초기화
 onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+  initBannerAnimation();
+  handleScroll(); // 초기
+
   hospitalNmList.map((el) => {
     if (el.key == hospitalNm) {
       sHospitalNm.value = el.value;
+      // 임시
+      url.value = `/hospital/135`;
     }
   });
   if (sHospitalNm.value == null) {

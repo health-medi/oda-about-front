@@ -3,12 +3,9 @@
     <footer
       class="bg-[#26282C] text-white/[0.6] break-keep pt-6 md:pt-12 pb-[50px] md:pb-[100px]"
     >
-      <section class="w-full md:w-[1100px] mx-auto">
+      <section class="w-full md:w-[1100px] mx-auto" v-if="!associateHospital">
         <div
-          :class="[
-            'flex text-sm md:text-base text-center md:text-left pb-6 border-white/25 *:transition-all',
-            { 'border-b': !associateHospital },
-          ]"
+          class="flex text-sm md:text-base text-center md:text-left pb-6 border-white/25 *:transition-all border-b"
         >
           <a
             class="flex-1 md:flex-initial hover:bg-black md:mr-16 text-white"
@@ -26,14 +23,12 @@
           <a
             class="flex-1 md:flex-initial hover:bg-black"
             href="https://todaydiet.kr"
-            v-if="!associateHospital"
             >가입문의</a
           >
         </div>
 
         <div
           class="md:flex items-start p-6 md:p-0 md:pt-9 text-sm md:font-light"
-          v-if="!associateHospital"
         >
           <img
             class="w-[35px] md:w-auto md:mr-6 mb-6"
@@ -76,7 +71,7 @@
           class="md:text-xl mr-4 rounded-full font-bold text-center pt-1.5 md:pt-3 bg-[#FF6079] h-[35px] md:h-[50px] w-[150px] md:w-[267px] hover:bg-[#ff3e5c] transition-all"
           href="#"
         >
-          <NuxtLink to="/map">한의원 상담신청</NuxtLink>
+          <NuxtLink :to="url">한의원 상담신청</NuxtLink>
         </a>
       </section>
     </footer>
@@ -90,12 +85,18 @@ const hostpitalNm = route.fullPath;
 // 제휴 병원
 const associateHospital = ref(false);
 
+// URL
+const url = ref();
+
 // 제휴 병원 체크
 const checkAssociateHospital = () => {
   if (hostpitalNm.indexOf("@") > 0) {
     associateHospital.value = true;
+    // 추후 병원 추가시 가변성있게 변경
+    url.value = "/hospital/135";
   } else {
     associateHospital.value = false;
+    url.value = "/map";
   }
 };
 

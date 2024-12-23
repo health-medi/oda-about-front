@@ -9,7 +9,7 @@
     <div class="flex items-center justify-between w-full md:w-auto">
       <!-- 로고 -->
       <div>
-        <a href="/" class="z-10">
+        <a :href="url" class="z-10">
           <!-- FIXME -->
           <img
             class="hidden md:block w-[206px]"
@@ -89,6 +89,8 @@ const hostpitalNm = route.fullPath;
 
 // 제휴 병원
 const associateHospital = ref(false);
+// URL
+const url = ref();
 
 // 메뉴 토글 함수
 const toggleNavMenu = () => {
@@ -110,8 +112,10 @@ const handleScroll = () => {
 const checkAssociateHospital = () => {
   if (hostpitalNm.indexOf("@") > 0) {
     associateHospital.value = true;
+    url.value = route.fullPath;
   } else {
     associateHospital.value = false;
+    url.value = "/";
   }
 };
 
