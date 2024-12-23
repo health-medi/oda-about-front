@@ -407,9 +407,10 @@
 <script setup>
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+// 라우터
 const route = useRoute();
 const router = useRouter();
-const hospitalNm = route.params.hospitalNm; // @ 뒤의 hospitalNm 추출
+const hospitalNm = route.params.hospitalNm;
 const sHospitalNm = ref();
 // URL
 const url = ref();
@@ -553,7 +554,7 @@ onMounted(() => {
   hospitalNmList.map((el) => {
     if (el.key == hospitalNm) {
       sHospitalNm.value = el.value;
-      // 임시
+      // 임시 (코키아)
       url.value = `/hospital/135`;
     }
   });
@@ -563,6 +564,7 @@ onMounted(() => {
       msg: "페당 페이지는 없는 페이지 입니다.",
       type: "warning",
     });
+    url.value = "/map";
     router.push("/");
   }
 });
