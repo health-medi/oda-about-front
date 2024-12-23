@@ -410,8 +410,14 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 // 라우터
 const route = useRoute();
 const router = useRouter();
-const hospitalNm = route.params.hospitalNm;
+
+// session에 저장
+sessionStorage.setItem("hospitalNm", route.params.hospitalNm);
+
+const hospitalNm = sessionStorage.getItem("hospitalNm");
+
 const sHospitalNm = ref();
+
 // URL
 const url = ref();
 

@@ -90,13 +90,14 @@ const url = ref();
 
 // 제휴 병원 체크
 const checkAssociateHospital = () => {
-  if (hostpitalNm.indexOf("@") > 0) {
-    associateHospital.value = true;
-    // 추후 병원 추가시 가변성있게 변경
-    url.value = "/hospital/135";
-  } else {
+  let sessionValue = sessionStorage.getItem("hospitalNm");
+  if (sessionValue == null) {
     associateHospital.value = false;
     url.value = "/map";
+  } else {
+    associateHospital.value = true;
+    // 추후 병원 추가시 가변성있게 변경
+    url.value = `/hospital/135`;
   }
 };
 

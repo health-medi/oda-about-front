@@ -110,12 +110,13 @@ const handleScroll = () => {
 
 // 제휴 병원 체크
 const checkAssociateHospital = () => {
-  if (hostpitalNm.indexOf("@") > 0) {
-    associateHospital.value = true;
-    url.value = route.fullPath;
-  } else {
+  let sessionValue = sessionStorage.getItem("hospitalNm");
+  if (sessionValue == null) {
     associateHospital.value = false;
     url.value = "/";
+  } else {
+    associateHospital.value = true;
+    url.value = `/@${sessionValue}`;
   }
 };
 
