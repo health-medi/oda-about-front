@@ -5,7 +5,10 @@
     >
       <section class="w-full md:w-[1100px] mx-auto">
         <div
-          class="flex text-sm md:text-base text-center md:text-left pb-6 border-b border-white/25 *:transition-all"
+          :class="[
+            'flex text-sm md:text-base text-center md:text-left pb-6 border-white/25 *:transition-all',
+            { 'border-b': !associateHospital },
+          ]"
         >
           <a
             class="flex-1 md:flex-initial hover:bg-black md:mr-16 text-white"
@@ -23,12 +26,14 @@
           <a
             class="flex-1 md:flex-initial hover:bg-black"
             href="https://todaydiet.kr"
+            v-if="!associateHospital"
             >가입문의</a
           >
         </div>
 
         <div
           class="md:flex items-start p-6 md:p-0 md:pt-9 text-sm md:font-light"
+          v-if="!associateHospital"
         >
           <img
             class="w-[35px] md:w-auto md:mr-6 mb-6"
@@ -77,3 +82,22 @@
     </footer>
   </div>
 </template>
+<script setup>
+// 라우터
+const route = useRoute();
+const hostpitalNm = route.fullPath;
+
+// 제휴 병원
+const associateHospital = ref(false);
+
+// 제휴 병원 체크
+const checkAssociateHospital = () => {
+  if (hostpitalNm.indexOf("@") > 0) {
+    associateHospital.value = true;
+  } else {
+    associateHospital.value = false;
+  }
+};
+
+checkAssociateHospital();
+</script>

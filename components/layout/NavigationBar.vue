@@ -69,6 +69,7 @@
       <a
         class="block md:inline text-3xl md:text-base mt-12 md:mt-0 text-[#2E2E2E] transition duration-300 ease-in-out hover:font-bold"
         href="#"
+        v-if="!associateHospital"
       >
         <NuxtLink to="/map">지점 안내</NuxtLink>
       </a>
@@ -77,12 +78,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-
 // 메뉴 상태 관리
 const isScrolled = ref(false);
 const isMenuOpen = ref(false);
 const isMobile = ref(false);
+
+// 라우터
+const route = useRoute();
+const hostpitalNm = route.fullPath;
+
+// 제휴 병원
+const associateHospital = ref(false);
 
 // 메뉴 토글 함수
 const toggleNavMenu = () => {
@@ -100,11 +106,21 @@ const handleScroll = () => {
   isScrolled.value = scrollPosition > 10;
 };
 
+// 제휴 병원 체크
+const checkAssociateHospital = () => {
+  if (hostpitalNm.indexOf("@") > 0) {
+    associateHospital.value = true;
+  } else {
+    associateHospital.value = false;
+  }
+};
+
 // mounted 시점에 화면 크기를 체크하고 리스너 추가
 onMounted(() => {
   checkScreenSize();
   window.addEventListener("resize", checkScreenSize);
   window.addEventListener("scroll", handleScroll);
+  checkAssociateHospital();
 });
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
