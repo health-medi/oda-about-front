@@ -3,7 +3,7 @@
     <footer
       class="bg-[#26282C] text-white/[0.6] break-keep pt-6 md:pt-12 pb-[50px] md:pb-[100px]"
     >
-      <section class="w-full md:w-[1100px] mx-auto" v-if="!associateHospital">
+      <section class="w-full md:w-[1100px] mx-auto">
         <div
           class="flex text-sm md:text-base text-center md:text-left pb-6 border-white/25 *:transition-all border-b"
         >
@@ -23,6 +23,7 @@
           <a
             class="flex-1 md:flex-initial hover:bg-black"
             href="https://todaydiet.kr"
+            v-if="!associateHospital"
             >가입문의</a
           >
         </div>
@@ -37,21 +38,25 @@
           />
           <ul class="flex-1">
             <li class="mb-3">
-              <span>오다한의원</span>
+              <span>{{ infoObj.hospitalNm }}</span>
               <span class="border-l border-white/[0.6] ml-2.5 pl-2.5"
-                >대표 최학현</span
+                >대표 {{ infoObj.ceo }}</span
               >
-              <span class="border-l border-white/[0.6] ml-2.5 pl-2.5"
-                >서울특별시 종로구 종로 265 (종로6가) 1층</span
-              >
+              <span class="border-l border-white/[0.6] ml-2.5 pl-2.5">{{
+                infoObj.addr
+              }}</span>
               <span class="border-l border-white/[0.6] ml-2.5 pl-2.5"
                 >이메일
-                <a href="mailto:odadiet@gmail.com">odadiet@gmail.com</a></span
+                <a :href="`mailto:${infoObj.email}`">{{
+                  infoObj.email
+                }}</a></span
               >
             </li>
             <li class="mb-6">
-              <span>사업자등록번호 6279101006</span>
-              <span class="border-l border-white/[0.6] ml-2.5 pl-2.5"
+              <span>사업자등록번호 {{ infoObj.companyNumer }}</span>
+              <span
+                class="border-l border-white/[0.6] ml-2.5 pl-2.5"
+                v-if="!associateHospital"
                 >통신판매신고 제2024-서울종로-1090호</span
               >
             </li>
@@ -80,13 +85,22 @@
 <script setup>
 // 라우터
 const route = useRoute();
-const hostpitalNm = route.fullPath;
+const hospitalNm = route.fullPath;
 
 // 제휴 병원
 const associateHospital = ref(false);
 
 // URL
 const url = ref();
+
+// 정보
+const infoObj = ref({
+  hospitalNm: "오다한의원",
+  ceo: "최학현",
+  addr: "서울특별시 종로구 종로 265 (종로6가) 1층",
+  email: "odadiet@gmail.com",
+  companyNumer: "6279101006",
+});
 
 // 제휴 병원 체크
 const checkAssociateHospital = () => {
@@ -98,6 +112,11 @@ const checkAssociateHospital = () => {
     associateHospital.value = true;
     // 추후 병원 추가시 가변성있게 변경
     url.value = `/hospital/135`;
+    infoObj.value.hospitalNm = "코키아한방병원";
+    infoObj.value.ceo = "김경호";
+    infoObj.value.addr = "경기 파주시 와석순환로507 4~5층";
+    infoObj.value.email = "kkhfh@naver.com";
+    infoObj.value.companyNumer = "383-04-03216";
   }
 };
 

@@ -1,7 +1,10 @@
 <template>
   <div class="grid grid-cols-3 gap-2 w-[600px]">
     <h3 class="h-12 leading-[48px]">
-      <NuxtLink to="/">오다 한의원</NuxtLink>
+      <NuxtLink to="/@kokia" v-if="hospitalNm == 'kokia'"
+        >코키아한방병원</NuxtLink
+      >
+      <NuxtLink to="/" v-else>오다 한의원</NuxtLink>
     </h3>
     <NuxtLink
       active-class="terms-menu-style"
@@ -19,3 +22,6 @@
     </NuxtLink>
   </div>
 </template>
+<script setup>
+const hospitalNm = sessionStorage.getItem("hospitalNm");
+</script>
